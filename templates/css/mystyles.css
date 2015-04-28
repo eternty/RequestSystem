@@ -1,0 +1,43 @@
+.undernav{
+	margin-top: 100px;
+	width:50%;
+
+	}
+
+.table-left{
+	margin-left: 10px;
+	float:left;
+
+}
+.table-right{
+	border-color: blue;
+	margin-right: 10px;
+	float:right;
+}
+.main-theme{
+	margin: 50px 20px 20px 20px;
+	padding: 10px;
+
+}
+.inputfield{
+	margin-bottom: 2px;
+
+
+}
+.selectors{
+	width: 20em;
+	margin-bottom: 2px;
+	margin-left: 15px;
+}
+#regbutton{
+	margin-left: 15px;
+}
+.underhead{
+	margin-top: 50px;
+}
+
+.scrolling {
+    max-height:600px;
+    overflow-y:auto;  
+}
+

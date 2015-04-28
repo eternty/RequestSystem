@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Журнал заявки</title>
+	    <link href="css/bootstrap.min.css" rel="stylesheet">
+	    <link href = "css/mystyles.css" rel="stylesheet" type="text/css">
+  	</head>
+    <body>
+    
+    <div class ="container-fluid" >
+    	<div class ="row " >
+    		<h3 class="text-center"> Журнал заявки </h3>
+    	</div> 
+    	<br /><br />	
+    	<div class="col-md-6">
+	    	<div class="panel panel-info">
+	            <div class="panel-heading">
+	                Детали заявки
+	            </div>
+	            <div class="panel-body">
+	            	<div class = "row"> 
+			    		<label for="inputEmail3" class="col-sm-3 control-label">Компания</label>
+						<div class="col-sm-8">
+							<input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Компания">
+						</div>
+					</div>
+					<div class = "row">
+					    <label for="inputEmail3" class="col-sm-3 control-label">Заявитель</label>
+						<div class="col-sm-8">
+						    <input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Заявитель">
+						</div>
+					</div>
+				    <div class = "row">
+						<label for="inputEmail3" class="col-sm-3 control-label">Заголовок</label>
+						<div class="col-sm-8">
+							<input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Заголовок">
+						</div>
+					</div>
+					<div class = "row">
+				    	<label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Краткая информация</label>
+				    	<div class="col-sm-8">
+				      		<textarea class="form-control inputfield" rows="6" placeholder="Краткая информация"></textarea>
+				    	</div>
+					</div>
+					<div class = "row">
+						<label for="inputEmail3" class="col-sm-3 control-label">Дата регистрации</label>
+						<div class="col-sm-8">
+							<input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Дата регистрации">
+						</div>
+					</div>
+					<div class = "row">
+				    	<label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Договор</label>
+				    	<div class="col-sm-8">
+				       		<input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Договор">
+				    	</div>
+					</div>
+					<div class = "row">
+				    	<label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Оборудование</label>
+				    	<div class="col-sm-8">
+				       		<input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Оборудование">
+				    	</div>
+					</div>
+    				<div class = "row ">	
+					    <label for="inputEmail3" class="col-sm-3  control-label">Тип</label>	
+					 	<select class="form-control col-sm-3  selectors">
+						    <option>Аварийная ситуация</option>
+						    <option>Запрос на обслуживание</option>
+							<option>Запрос на изменение</option>
+						</select>   
+				    </div> 	
+				    <div class = "row ">	
+					    <label for="inputEmail3" class="col-sm-3  control-label">Приоритет</label>	
+					 	<select class="form-control col-sm-2  selectors">
+						    <option>Критический</option>
+						    <option>Высокий</option>
+							<option>Средний</option>
+							<option>Низкий</option>
+						</select>   
+				    </div> 
+				    <div class = "row ">	
+					    <label for="inputEmail3" class="col-sm-3  control-label">Статус</label>	
+					 	<select class="form-control col-sm-2  selectors">
+						    <option>Зарегистрирована</option>
+						    <option>Принята</option>
+							<option>Исследование и диагностика</option>
+							<option>Выполняется</option>
+							<option>В ожидании</option>
+							<option>Выполнена</option>
+							<option>Завершена</option>
+						</select>   
+				    </div> 
+				    <div class = "row">
+				    	<label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Диспетчер</label>
+				    	<div class="col-sm-8" >
+				       		<input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Диспетчер">
+				    	</div>
+					</div>	
+					<div class = "row">
+				    	<label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Группа</label>
+				    	<div class="col-sm-8">
+				       		<input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Группа">
+				    	</div>
+					</div>
+					<div class = "row">
+				    	<label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Исполнитель</label>
+				    	<div class="col-sm-8">
+				       		<input type="inputEmail3" class="form-control inputfield" id="inputEmail3" placeholder="Исполнитель">
+				    	</div>
+					</div>
+					<div class = "row">
+				    	<label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Решение</label>
+				    	<div class="col-sm-8">
+				      		<textarea class="form-control inputfield" rows="6" placeholder="Решение"></textarea>
+				    	</div>
+					</div>
+					<div class = "row">
+				    <label for="inputEmail3" class="col-sm-3  control-label">Подтверждение</label>
+				    <div class="col-sm-8  inputfield">
+						<div class="radio">
+							    <label>
+							        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+							          	Да 
+							    </label>
+						</div>
+						<div class="radio">
+							    <label>
+							        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+							          	Нет
+							    </label>
+						</div>
+				    </div>
+				</div>
+ 				</div>
+	        </div>
+		</div>	
+    	<div class="col-md-6">
+    		<div class="panel panel-info ">
+	            <div class="panel-heading">
+	                Рабочий журнал
+	            </div>
+			
+    			<div class="panel-body ">
+					<ul class="media-list scrolling">
+						<li class="media">
+                            <div class="media-body">
+                                Сообщение1
+                                    <br />
+                                    <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                    <hr />
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="media-body">
+                                Сообщение2
+                                    <br />
+                                    <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                    <hr />
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="media-body">
+                                Сообщение3
+                                    <br />
+                                    <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                    <hr />
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="media-body">
+                                Сообщение4
+                                    <br />
+                                    <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                    <hr />
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="media-body">
+                                Сообщение1
+                                    <br />
+                                    <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                    <hr />
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="media-body">
+                                Сообщение1
+                                    <br />
+                                    <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                    <hr />
+                            </div>
+                        </li>
+                        <li class="media">
+                            <div class="media-body">
+                                Сообщение1
+                                    <br />
+                                    <small class="text-muted">Alex Deo | 23rd June at 5:00pm</small>
+                                    <hr />
+                            </div>
+                        </li>
+                    </ul>
+                    <div class = "row">
+				    	<label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Комментарий</label>
+				   	    <div class="col-sm-8">
+				      		<textarea class="form-control inputfield" rows="6" placeholder="Комментарий"></textarea>
+				        </div>
+				    </div>
+				    <div class = "row">
+				    	<div class="col-sm-offset-8 col-sm-5">
+				        	<button type="submit" class="btn btn-default" id="regbutton">Отправить</button>
+						</div>
+				    </div>
+	    		</div>
+    		</div>
+        </div>
+    
+
+
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	    <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
