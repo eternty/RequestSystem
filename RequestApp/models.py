@@ -33,6 +33,12 @@ class MyUserManager(BaseUserManager):
 
 
 class Company(models.Model):
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        verbose_name = u'Компания'
+        verbose_name_plural = u'Компании'
+
     name = models.CharField(max_length=30)
     phone = models.CharField(max_length=15)
     address = models.CharField(max_length=100)
@@ -41,11 +47,17 @@ class Company(models.Model):
 
 
 class User_type(models.Model):
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = u'Тип пользователя'
+        verbose_name_plural = u'Типы пользователей'
+
     name = models.CharField(max_length=20)
     info = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
+
 
 
 class System_User(AbstractBaseUser, PermissionsMixin):
@@ -85,11 +97,18 @@ class System_User(AbstractBaseUser, PermissionsMixin):
         return self.first_name
 
     def get_full_name(self):
-        full_name = '%s %s %s' % (self.first_name, self.middle_name, self.last_name)
+        full_name = '%s %s %s' % (self.first_name, self.patronymic, self.last_name)
         return full_name.strip()
 
 
 class Contract(models.Model):
+    def __unicode__(self):
+        return self.number
+
+    class Meta:
+        verbose_name = u'Договор'
+        verbose_name_plural = u'Договоры'
+
     number = models.CharField(max_length=15)
     company = models.ForeignKey(Company)
     begin_date = models.DateField(auto_now=False, auto_now_add=False)
@@ -98,6 +117,13 @@ class Contract(models.Model):
 
 
 class Request_status(models.Model):
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = u'Статус заявки'
+        verbose_name_plural = u'Статусы заявок'
+
     name = models.CharField(max_length=30)
     info = models.CharField(max_length=100)
 
@@ -105,17 +131,34 @@ class Request_status(models.Model):
 class Request_type(models.Model):
     def __unicode__(self):
         return self.name
+    class Meta:
+        verbose_name = u'Тип заявки'
+        verbose_name_plural = u'Типы заявок'
 
     name = models.CharField(max_length=15)
     info = models.CharField(max_length=100)
 
 
 class Request_priority(models.Model):
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = u'Приоритет заявки'
+        verbose_name_plural = u'Приоритеты заявок'
+
     name = models.CharField(max_length=15)
     info = models.CharField(max_length=100)
 
 
 class Equipment(models.Model):
+    def __unicode__(self):
+        return self.serial
+
+    class Meta:
+        verbose_name = u'Оборудование'
+        verbose_name_plural = u'Оборудование'
+
     name = models.CharField(max_length=30)
     serial = models.CharField(max_length=15)
     address = models.CharField(max_length=100)
@@ -124,6 +167,14 @@ class Equipment(models.Model):
 
 
 class Normative_time(models.Model):
+
+    def __unicode__(self):
+        return self.time_value
+
+    class Meta:
+        verbose_name = u'Норматив на статус'
+        verbose_name_plural = u'Нормативы на статусы'
+
     reqtype = models.ForeignKey(Request_type)
     priority = models.ForeignKey(Request_priority)
     status = models.ForeignKey(Request_status)
@@ -131,17 +182,33 @@ class Normative_time(models.Model):
 
 
 class Groups_engineer(models.Model):
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        verbose_name = u'Группа инженеров'
+        verbose_name_plural = u'Группы инженеров'
+
     name = models.CharField(max_length=30)
     head = models.ForeignKey(System_User, blank=True, null=True)
     info = models.CharField(max_length=100)
 
 
 class Specialization(models.Model):
+    class Meta:
+        verbose_name = u'Специализация инженера'
+        verbose_name_plural = u'Специализации инженеров'
+
     engineer = models.ForeignKey(System_User)
     group = models.ForeignKey(Groups_engineer)
 
 
 class Request(models.Model):
+
+    def __unicode__(self):
+        return self.id
+    class Meta:
+        verbose_name = u'Заявка'
+        verbose_name_plural = u'Заявки'
 
     company = models.ForeignKey(Company)
     creator = models.ForeignKey(System_User, related_name='creator_of')
@@ -167,6 +234,12 @@ class Request(models.Model):
 
 
 class Execution_time(models.Model):
+    def __unicode__(self):
+        return self.start_exectime
+    class Meta:
+        verbose_name = u'Время выполнения на статус'
+        verbose_name_plural = u'Время выполнения на статусы'
+
     request = models.ForeignKey(Request)
     rstatus = models.ForeignKey(Request_status)
     start_exectime = models.TimeField(auto_now=False, auto_now_add=False)
@@ -174,6 +247,9 @@ class Execution_time(models.Model):
 
 
 class Comment(models.Model):
+    class Meta:
+        verbose_name = u'Коммент'
+        verbose_name_plural = u'Комменты'
     author = models.ForeignKey(System_User)
     content = models.CharField(max_length=250)
     request = models.ForeignKey(Request)
@@ -181,15 +257,22 @@ class Comment(models.Model):
 
 
 class Replacement(models.Model):
+    class Meta:
+        verbose_name = u'Заменяемость оборудования'
+        verbose_name_plural = u'Заменяемости оборудования'
+
     crashed = models.ForeignKey(Equipment, related_name='crash')
     replace = models.ForeignKey(Equipment, related_name='replace')
 
 
 class Storage(models.Model):
+    class Meta:
+        verbose_name = u'Учет оборудования'
+        verbose_name_plural = u'Учет оборудования'
     equipment = models.ForeignKey(Equipment, related_name='storaged')
     income_date = models.DateField(auto_now=False, auto_now_add=True)
-    outcome_date = models.DateField(auto_now=False, auto_now_add=False)
-    target_equipment = models.ForeignKey(Equipment, related_name='replaced')
+    outcome_date = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+    target_equipment = models.ForeignKey(Equipment, related_name='replaced', null= True, blank= True)
 
 
 	
