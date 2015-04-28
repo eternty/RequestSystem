@@ -4,17 +4,21 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # Create your views here.
-from RequestApp.models import User_type
+from RequestApp.models import User_type, Company, Request
 
 
 @login_required(login_url='/signin')
 def index(request):
     if request.user.usertype.name == 'Engineer':
-        return HttpResponse('engineer')
+        return render(request, 'Engineer.html', )
     elif request.user.usertype.name == 'Dispatcher':
-        return HttpResponse('dispatcher')
+        requests = Request.objects.filter(dispatcher=request.user)
+        context = {
+            'requests': requests
+        }
+        return render(request, 'Dispatcher.html', context)
     else:
-        return HttpResponse('I have no idea')
+        return render(request, 'Client.html')
 
 
 def signin(request):

@@ -142,6 +142,7 @@ class Specialization(models.Model):
 
 
 class Request(models.Model):
+
     company = models.ForeignKey(Company)
     creator = models.ForeignKey(System_User, related_name='creator_of')
     reqtype = models.ForeignKey(Request_type)
@@ -152,7 +153,7 @@ class Request(models.Model):
     dispatcher = models.ForeignKey(System_User, blank=True, null=True, related_name='dispatcher_of')
     group = models.ForeignKey(Groups_engineer, blank=True, null=True)
     engineer = models.ForeignKey(System_User, blank=True, null=True, related_name='engineer_of')
-    createtime = models.TimeField(auto_now=False, auto_now_add=True)
+    createtime = models.DateTimeField( auto_created=True)
     REQUEST_MARKS = (
         ('EF', 'Engineer_fault'),
         ('DF', 'Disp_fault'),
