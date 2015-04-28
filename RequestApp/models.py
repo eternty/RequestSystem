@@ -81,6 +81,13 @@ class System_User(AbstractBaseUser, PermissionsMixin):
     def __unicode__(self):
         return self.username
 
+    def get_short_name(self):
+        return self.first_name
+
+    def get_full_name(self):
+        full_name = '%s %s %s' % (self.first_name, self.middle_name, self.last_name)
+        return full_name.strip()
+
 
 class Contract(models.Model):
     number = models.CharField(max_length=15)
