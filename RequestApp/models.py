@@ -258,8 +258,8 @@ class Comment(models.Model):
 
 class Replacement(models.Model):
     class Meta:
-        verbose_name = u'Заменяемость оборудования'
-        verbose_name_plural = u'Заменяемости оборудования'
+        verbose_name = u' Функциональная замена'
+        verbose_name_plural = u'Функциональная замена'
 
     crashed = models.ForeignKey(Equipment, related_name='crash')
     replace = models.ForeignKey(Equipment, related_name='replace')

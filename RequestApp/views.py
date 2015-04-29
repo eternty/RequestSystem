@@ -13,10 +13,12 @@ def index(request):
         return render(request, 'Engineer.html', )
     elif request.user.usertype.name == 'Dispatcher':
         requests = Request.objects.filter(dispatcher=request.user)
+        myrequests = Request.objects.filter(dispatcher=request.user )
         context = {
-            'requests': requests
+            'requests': requests,
+            'myrequests': myrequests
         }
-        return render(request, 'Dispatcher.html', context)
+        return render(request, 'disp.html', context)
     else:
         return render(request, 'Client.html')
 

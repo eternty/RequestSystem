@@ -4,10 +4,10 @@ from RequestApp import views
 from django.conf import settings
 
 urlpatterns = patterns('',
-    # Examples:
+
     url(r'^signin/?$', views.signin),
     url(r'^$', views.index),
-    # url(r'^blog/', include('blog.urls')),
+
     url(r'^admin/', include(admin.site.urls)),
     url(r'^hello$', views.hello, name= "hello"),
     url(r'^client$', views.client),

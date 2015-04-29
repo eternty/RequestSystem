@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block header %}Консоль диспетчера{% endblock %}
+{% block contentnavbar %}
+    <li class="active"><a href="#">Консоль диспетчера</a></li>
+    <li><a href="#">Новая заявка</a></li>
+    <li><a href="#">Заявки в работе</a></li>
+    <li><a href="#">Загрузка инженеров</a></li>
+    <li><a href="#">Компании</a></li>
+    <li><a href="#">Пользователи</a></li>
+    <li><a href="#">Оборудование</a></li>
+{% endblock %}
+{% block lefttablename %}
+    <th colspan="7">Зарегистрированные заявки</th>
+{% endblock %}
+{% block lefttablecolumns %}
+
+    <th>ID заявки</th>
+    <th>Заголовок</th>
+    <th>Тип</th>
+    <th>Приоритет</th>
+    <th>Дата регистрации</th>
+    <th>Компания</th>
+    <th>Заказчик</th>
+
+{% endblock %}
+{% block lefttablecontent %}
+    {% for req in requests %}
+        <tr>
+
+            <td>{{ req.id }}</td>
+            <td>{{ req.header }}</td>
+            <td>{{ req.reqtype }}</td>
+            <td>{{ req.priority }}</td>
+            <td>{{ req.createtime }}</td>
+            <td>{{ req.company.name }}</td>
+            <td>{{ req.creator.username }}</td>
+
+        </tr>
+    {% empty %}
+        <tr>
+
+            <td colspan="7">Relax=) </td>
+
+        </tr>
+    {% endfor %}
+{% endblock %}
+{% block righttablename %}
+    <th colspan="6">Мои заявки</th>
+{% endblock %}
+{% block righttablecolumns %}
+    <th>ID заявки</th>
+    <th>Заголовок</th>
+    <th>Тип</th>
+    <th>Приоритет</th>
+    <th>Статус</th>
+    <th>Заказчик</th>
+
+{% endblock %}
+{% block righttablecontent %}
+
+    {% for myreq in myrequests %}
+        <tr>
+
+            <td>{{ myreq.id }}</td>
+            <td>{{ myreq.header }}</td>
+            <td>{{ myreq.reqtype }}</td>
+            <td>{{ myreq.priority }}</td>
+
+
+            <td>{{ myreq.creator.username }}</td>
+
+        </tr>
+    {% empty %}
+        <tr>
+
+            <td colspan="6">Nothing to do=) </td>
+
+        </tr>
+    {% endfor %}
+
+{% endblock %}
