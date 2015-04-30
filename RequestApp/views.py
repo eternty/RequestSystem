@@ -10,10 +10,17 @@ from RequestApp.models import User_type, Company, Request, Request_status, Speci
 @login_required(login_url='/signin')
 def index(request):
     if request.user.usertype.name == 'Engineer':
-        requests = Request.objects.filter(group = any(request.user.get_specialization()))
+
+        requests = Request.objects.filter(group__in=request.user.get_specialization())
         myrequests = Request.objects.filter(engineer = request.user)
-        return render(request, 'engin.html', )
+        context = {
+            'requests': requests,
+            'myrequests': myrequests
+        }
+        return render(request, 'engineer.html', context )
+
     elif request.user.usertype.name == 'Dispatcher':
+
         requests = Request.objects.filter(status__id = 2 )
         myrequests = Request.objects.filter(engineer = request.user)
         context = {
@@ -21,7 +28,8 @@ def index(request):
             'myrequests': myrequests
         }
         return render(request, 'disp.html', context)
-    else:
+
+    elif request.user.usertype.name == 'Client':
 
         requests = Request.objects.filter(company = request.user.company)
         myrequests = Request.objects.filter(creator = request.user)
@@ -30,6 +38,14 @@ def index(request):
             'myrequests': myrequests
         }
         return render(request, 'client.html', context)
+    else:
+        requests= Request.objects.exclude(status__id = 7 )
+        newrequests = Request.objects.filter(status__id = 2)
+        context = {
+            'requests': requests,
+            'newrequests': newrequests
+        }
+        return render(request, 'manager.html', context)
 
 
 def signin(request):

@@ -36,7 +36,7 @@ class ContractAdmin(admin.ModelAdmin):
     list_display = ('number', 'company', 'begin_date', 'finish_date')
 
 class RequestStatusAdmin(admin.ModelAdmin):
-    list_display = ('name', 'info')
+    list_display = ('id', 'name', 'info')
 
 class RequestAdmin(admin.ModelAdmin):
     list_display = ('id', 'header', 'company', 'creator', 'createtime', 'reqtype', 'priority', 'status', 'group', 'engineer')

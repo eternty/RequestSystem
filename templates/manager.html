@@ -1,0 +1,80 @@
+{% extends "baseconsole.html" %}
+{% block header %}Консоль менеджера{% endblock %}
+{% block contentnavbar %}
+    <li class="active"><a href="#">Консоль менеджера</a></li>
+    <li><a href="#">Новая заявка</a></li>
+    <li><a href="#">Заявки в работе</a></li>
+    <li><a href="#">Загрузка инженеров</a></li>
+    <li><a href="#">Компании</a></li>
+    <li><a href="#">Пользователи</a></li>
+    <li><a href="#">Оборудование</a></li>
+{% endblock %}
+{% block lefttablename %}
+    <th colspan="7" style="text-align: center">Зарегистрированные заявки</th>
+{% endblock %}
+{% block lefttablecolumns %}
+
+    <th>ID заявки</th>
+    <th>Заголовок</th>
+    <th>Тип</th>
+    <th>Приоритет</th>
+    <th>Дата регистрации</th>
+    <th>Компания</th>
+    <th>Заказчик</th>
+
+{% endblock %}
+{% block lefttablecontent %}
+    {% for newreq in newrequests %}
+        <tr>
+
+            <td>{{ newreq.id }}</td>
+            <td>{{ newreq.header }}</td>
+            <td>{{ newreq.reqtype }}</td>
+            <td>{{ newreq.priority }}</td>
+            <td>{{ newreq.createtime }}</td>
+            <td>{{ newreq.company.name }}</td>
+            <td>{{ newreq.creator.username }}</td>
+
+        </tr>
+    {% empty %}
+        <tr>
+
+            <td colspan="7">Relax=) </td>
+
+        </tr>
+    {% endfor %}
+{% endblock %}
+{% block righttablename %}
+    <th colspan="6" style="text-align: center">Все заявки</th>
+{% endblock %}
+{% block righttablecolumns %}
+    <th>ID заявки</th>
+    <th>Заголовок</th>
+    <th>Тип</th>
+    <th>Приоритет</th>
+    <th>Статус</th>
+    <th>Заказчик</th>
+
+{% endblock %}
+{% block righttablecontent %}
+
+    {% for req in requests %}
+        <tr>
+
+            <td>{{ req.id }}</td>
+            <td>{{ req.header }}</td>
+            <td>{{ req.reqtype }}</td>
+            <td>{{ req.priority }}</td>
+            <td>{{ req.status }}</td>
+            <td>{{ req.creator.username }}</td>
+
+        </tr>
+    {% empty %}
+        <tr>
+
+            <td colspan="6">Nothing to do=) </td>
+
+        </tr>
+    {% endfor %}
+
+{% endblock %}
