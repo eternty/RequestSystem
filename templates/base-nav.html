@@ -14,13 +14,46 @@
     <nav class="navbar navbar-default"  role="navigation">
   			<ul class="nav navbar-nav">
 
-	        	{% block contentnavbar %}
-                {% endblock %}
+	        	{% if usertype == 'Manager' %}
+
+                    <li class="active"><a href="#">Консоль менеджера</a></li>
+                    <li><a href="#">Новая заявка</a></li>
+                    <li><a href="#">Заявки в работе</a></li>
+                    <li><a href="#">Загрузка инженеров</a></li>
+                    <li><a href="companypage">Компании</a></li>
+                    <li><a href="#">Пользователи</a></li>
+                    <li><a href="#">Оборудование</a></li>
+
+                {% elif usertype == 'Dispatcher'  %}
+
+                    <li class="active"><a href="#">Консоль диспетчера</a></li>
+                    <li><a href="#">Новая заявка</a></li>
+                    <li><a href="#">Заявки в работе</a></li>
+                    <li><a href="#">Загрузка инженеров</a></li>
+                    <li><a href="#">Компании</a></li>
+                    <li><a href="#">Пользователи</a></li>
+                    <li><a href="#">Оборудование</a></li>
+
+                {% elif usertype == 'Engineer' %}
+
+                    <li class="active"><a href="#">Консоль исполнителя</a></li>
+                    <li><a href="#">Компании</a></li>
+                    <li><a href="#">Пользователи</a></li>
+                    <li><a href="#">Оборудование</a></li>
+
+                {% else %}
+                    <li class="active"><a href="#">Консоль клиента</a></li>
+                    <li><a href="#">Новая заявка</a></li>
+                    <li><a href="companypage">О компании</a></li>
+                    <li><a href="#">Пользователи</a></li>
+                    <li><a href="#">Оборудование</a></li>
+
+                {% endif %}
 
   			</ul>
 
             <button type="exit" class="btn btn-default navbar-btn pull-right">Выйти</button>
-            <a class="pull-right">Здравствуйте, {{ user.first_name }}</a>
+            <a class="pull-right" style="margin-right: 10px; margin-top: 20px">Здравствуйте, {{ user.first_name }}</a>
 
   	</nav>
     {% block otherbodycontent %}{% endblock %}

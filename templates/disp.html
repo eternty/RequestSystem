@@ -1,26 +1,20 @@
 {% extends "baseconsole.html" %}
 {% block header %}Консоль диспетчера{% endblock %}
 {% block contentnavbar %}
-    <li class="active"><a href="#">Консоль диспетчера</a></li>
-    <li><a href="#">Новая заявка</a></li>
-    <li><a href="#">Заявки в работе</a></li>
-    <li><a href="#">Загрузка инженеров</a></li>
-    <li><a href="#">Компании</a></li>
-    <li><a href="#">Пользователи</a></li>
-    <li><a href="#">Оборудование</a></li>
+
 {% endblock %}
 {% block lefttablename %}
     <th colspan="7" style="text-align: center">Зарегистрированные заявки</th>
 {% endblock %}
 {% block lefttablecolumns %}
 
-    <th>ID заявки</th>
-    <th>Заголовок</th>
-    <th>Тип</th>
-    <th>Приоритет</th>
-    <th>Дата регистрации</th>
-    <th>Компания</th>
-    <th>Заказчик</th>
+        <th>ID заявки</th>
+        <th>Заголовок</th>
+        <th>Тип</th>
+        <th>Приоритет</th>
+        <th>Дата регистрации</th>
+        <th>Компания</th>
+        <th>Заказчик</th>
 
 {% endblock %}
 {% block lefttablecontent %}

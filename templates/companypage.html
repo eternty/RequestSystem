@@ -1,19 +1,54 @@
 {% extends "base-nav.html" %}
 {% block otherbodycontent %}
-    {% block header %}Карточка компании{% endblock %}
-    <div class = form-row>
-        <div class = col-md-4>
-            <h1>Компания</h1>
-        </div>
-        <div class="col-md-8">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for company...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                </span>
-            </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
+    <div class = row-fluid>
+        <div class = row-fluid>
+            <div class = col-md-4>
+                <h1 style="text-align: center">{{ clientcompany.name }}</h1>
+            </div>
+            {% if usertype != 'Client' %}
+                <div class="col-md-8" style="margin-top: 25px">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for company...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
 
+            {% endif %}
+        </div>
+        <div class = row-fluid>
+
+            <div class="col-md-6 panel panel-info">
+
+                    <table class="table" >
+                        <thead style="background-color: #b9def0">
+                            <th colspan="4"><h3>Информация о компании:</h3></th>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Телефон:</b></td>
+                                <td><p>{{ clientcompany.phone }}</p></td>
+                            </tr>
+                            <tr>
+                                <td><b>Адрес:</b></td>
+                                <td><p>{{ clientcompany.address }}</p></td>
+                            </tr>
+                            <tr>
+                                <td><b>Менеджер:</b></td>
+                                <td><p>{{ manager }}</p></td>
+                            </tr>
+                            <tr>
+                                <td><b>Фокус-менеджер:</b></td>
+                                <td><p>{{ focus }}</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+            </div>
+        </div>
 
     </div>
 {% endblock %}
