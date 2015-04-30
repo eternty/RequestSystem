@@ -23,10 +23,10 @@
             <a class="pull-right">{{ user.name }}</a>
 
   	</nav>
-    <div class="container-fluid">
+    <div class="container-fluid tableconsole" >
    	<div class="row">
     	<div class="col-md-6 ">
-    			<table class="table table-bordered">
+    			<table class="table table-bordered " id="tableinconsole" >
     				<thead>
     					<tr>
     						{% block lefttablename %}{% endblock %}
@@ -43,7 +43,7 @@
     			</table>
     		</div>
     		<div class="col-md-6">
-    			<table class="table table-bordered">
+    			<table class="table table-bordered " id="tableinconsole">
     				<thead>
     					<tr>
     						{% block righttablename %}{% endblock %}
@@ -61,10 +61,6 @@
     		</div>
     </div>
     </div>
-
-
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

@@ -1,28 +1,29 @@
 .undernav{
 	margin-top: 100px;
 	width:50%;
+}
 
-	}
+/*размер дива, где размещаются таблицы заявок в консолях:*/
+.tablesconsole{
 
-.table-left{
-	margin-left: 10px;
-	float:left;
+    max-height:500px;
+   /* overflow-y:auto;
+    overflow-x: scroll;*/
+}
+/*размер таблиц в консоли*/
+#tableinconsole{
+    position: relative;
+    height: 10px;
+    overflow: auto;
 
 }
-.table-right{
-	border-color: blue;
-	margin-right: 10px;
-	float:right;
-}
+
 .main-theme{
 	margin: 50px 20px 20px 20px;
 	padding: 10px;
-
 }
 .inputfield{
 	margin-bottom: 2px;
-
-
 }
 .selectors{
 	width: 20em;
@@ -35,7 +36,6 @@
 .underhead{
 	margin-top: 50px;
 }
-
 .scrolling {
     max-height:600px;
     overflow-y:auto;  

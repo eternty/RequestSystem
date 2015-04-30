@@ -82,13 +82,13 @@ class System_User(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    patronymic = models.CharField(max_length=30)
+    patronymic = models.CharField(max_length=30, blank=True, null=True)
 
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     phone = models.CharField(max_length=15)
     company = models.ForeignKey(Company, null=True)
     usertype = models.ForeignKey(User_type, null=True)
-    place = models.CharField(max_length=30)
+    place = models.CharField(max_length=30, null=True, blank=True)
 
     def __unicode__(self):
         return self.username
@@ -204,8 +204,8 @@ class Specialization(models.Model):
 
 class Request(models.Model):
 
-    def __unicode__(self):
-        return self.id
+    #def __unicode__(self):
+    #   return self.id
     class Meta:
         verbose_name = u'Заявка'
         verbose_name_plural = u'Заявки'
@@ -230,7 +230,7 @@ class Request(models.Model):
     mark = models.CharField(max_length=2, choices=REQUEST_MARKS, default='OK')
     equipment = models.ForeignKey(Equipment, blank=True, null=True)
     approvement = models.BooleanField(default=False)
-    solution = models.CharField(max_length=250)
+    solution = models.CharField(max_length=250,null=True,blank=True)
 
 
 class Execution_time(models.Model):
