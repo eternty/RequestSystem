@@ -6,9 +6,10 @@ from django.conf import settings
 urlpatterns = patterns('',
 
     url(r'^signin/?$', views.signin),
-    url(r'^$', views.index),
+    url(r'^/?$', views.index),
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^companypage?$',views.companypage)
 
 
 )

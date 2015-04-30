@@ -61,3 +61,5 @@ def signin(request):
 def hello(request):
 	return HttpResponse("Hey You must be serious man, huh?")
 
+def companypage(request):
+    return render(request, "companypage.html")
