@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block header %}Консоль клиента{% endblock %}
+{% block contentnavbar %}
+    <li class="active"><a href="#">Консоль клиента</a></li>
+    <li><a href="#">Новая заявка</a></li>
+    <li><a href="#">О компании</a></li>
+    <li><a href="#">Пользователи</a></li>
+    <li><a href="#">Оборудование</a></li>
+{% endblock %}
+{% block lefttablename %}
+    <th colspan="6" style="text-align: center">Мои заявки</th>
+{% endblock %}
+{% block lefttablecolumns %}
+    <th>ID заявки</th>
+    <th>Заголовок</th>
+    <th>Тип</th>
+    <th>Приоритет</th>
+    <th>Статус</th>
+    <th>Исполнитель</th>
+{% endblock %}
+{% block lefttablecontent %}
+    {% for myreq in myrequests %}
+        <tr>
+
+            <td>{{ myreq.id }}</td>
+            <td>{{ myreq.header }}</td>
+            <td>{{ myreq.reqtype }}</td>
+            <td>{{ myreq.priority }}</td>
+            <td>{{ myreq.status }}</td>
+            <td>{{ myreq.engineer.username }}</td>
+
+        </tr>
+    {% empty %}
+        <tr>
+
+            <td colspan="6">I have no problem </td>
+
+        </tr>
+    {% endfor %}
+{% endblock %}
+{% block righttablename %}
+    <th colspan="8" style="text-align: center">Заявки компании</th>
+{% endblock %}
+{% block righttablecolumns %}
+
+    <th>ID заявки</th>
+    <th>Заголовок</th>
+    <th>Тип</th>
+    <th>Приоритет</th>
+    <th>Статус</th>
+    <th>Дата регистрации</th>
+    <th>Заказчик</th>
+    <th>Исполнитель</th>
+
+{% endblock %}
+{% block righttablecontent %}
+
+    {% for req in requests %}
+        <tr>
+
+            <td>{{ req.id }}</td>
+            <td>{{ req.header }}</td>
+            <td>{{ req.reqtype }}</td>
+            <td>{{ req.priority }}</td>
+            <td>{{ req.status }}</td>
+            <td>{{ req.createtime }}</td>
+            <td>{{ req.creator.username }}</td>
+            <td>{{ req.engineer.username }}</td>
+
+        </tr>
+    {% empty %}
+        <tr>
+
+            <td colspan="8">Nothing to glare  </td>
+
+        </tr>
+    {% endfor %}
+
+{% endblock %}
+

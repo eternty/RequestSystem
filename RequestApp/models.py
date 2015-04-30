@@ -220,7 +220,7 @@ class Request(models.Model):
     dispatcher = models.ForeignKey(System_User, blank=True, null=True, related_name='dispatcher_of')
     group = models.ForeignKey(Groups_engineer, blank=True, null=True)
     engineer = models.ForeignKey(System_User, blank=True, null=True, related_name='engineer_of')
-    createtime = models.DateTimeField( auto_created=True)
+    createtime = models.DateTimeField(default=timezone.now)
     REQUEST_MARKS = (
         ('EF', 'Engineer_fault'),
         ('DF', 'Disp_fault'),
@@ -242,7 +242,7 @@ class Execution_time(models.Model):
 
     request = models.ForeignKey(Request)
     rstatus = models.ForeignKey(Request_status)
-    start_exectime = models.TimeField(auto_now=False, auto_now_add=False)
+    start_exectime = models.TimeField(default=timezone.now)
     finish_exectime = models.TimeField(auto_now=False, auto_now_add=False)
 
 

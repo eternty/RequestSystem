@@ -4,13 +4,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # Create your views here.
-from RequestApp.models import User_type, Company, Request,Request_status
+from RequestApp.models import User_type, Company, Request, Request_status
 
 
 @login_required(login_url='/signin')
 def index(request):
     if request.user.usertype.name == 'Engineer':
-        return render(request, 'Engineer.html', )
+        requests = Request.objects.filter(group_id = request.user.company.id)
+        myrequests = Request.objects.filter(engineer = request.user)
+        return render(request, 'engin.html', )
     elif request.user.usertype.name == 'Dispatcher':
         requests = Request.objects.filter(status__id = 2 )
         myrequests = Request.objects.filter(engineer = request.user)
@@ -20,7 +22,14 @@ def index(request):
         }
         return render(request, 'disp.html', context)
     else:
-        return render(request, 'Client.html')
+
+        requests = Request.objects.filter(company_id = request.user.company.id)
+        myrequests = Request.objects.filter(creator = request.user)
+        context = {
+            'requests': requests,
+            'myrequests': myrequests
+        }
+        return render(request, 'client.html', context)
 
 
 def signin(request):
