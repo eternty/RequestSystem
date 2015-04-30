@@ -4,13 +4,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # Create your views here.
-from RequestApp.models import User_type, Company, Request, Request_status
+from RequestApp.models import User_type, Company, Request, Request_status, Specialization
 
 
 @login_required(login_url='/signin')
 def index(request):
     if request.user.usertype.name == 'Engineer':
-        requests = Request.objects.filter(group_id = request.user.company.id)
+        requests = Request.objects.filter(group = any(request.user.get_specialization()))
         myrequests = Request.objects.filter(engineer = request.user)
         return render(request, 'engin.html', )
     elif request.user.usertype.name == 'Dispatcher':
@@ -23,7 +23,7 @@ def index(request):
         return render(request, 'disp.html', context)
     else:
 
-        requests = Request.objects.filter(company_id = request.user.company.id)
+        requests = Request.objects.filter(company = request.user.company)
         myrequests = Request.objects.filter(creator = request.user)
         context = {
             'requests': requests,
@@ -44,11 +44,4 @@ def signin(request):
 
 def hello(request):
 	return HttpResponse("Hey You must be serious man, huh?")
-def client(request):
-    return render(request, "Client.html")
-def dispatcher(request):
-    return render(request, "Dispatcher.html")
-def engineer(request):
-    return render(request,"Engineer.html")
-def new_req(request):
-    return render(request,"New_request_client.html")
+

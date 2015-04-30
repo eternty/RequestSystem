@@ -99,6 +99,9 @@ class System_User(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         full_name = '%s %s %s' % (self.first_name, self.patronymic, self.last_name)
         return full_name.strip()
+    def get_specialization(self):
+        specials = Specialization.objects.filter(engineer = self)
+        return specials.group
 
 
 class Contract(models.Model):

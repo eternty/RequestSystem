@@ -9,11 +9,9 @@ urlpatterns = patterns('',
     url(r'^$', views.index),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^hello$', views.hello, name= "hello"),
-    url(r'^client$', views.client),
-    url(r'^dispatcher$',views.dispatcher),
-    url(r'^engineer$',views.engineer),
-    url(r'^new_req$',views.new_req)
+
+
+
 )
 
 urlpatterns += patterns('',

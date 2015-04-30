@@ -18,6 +18,7 @@ class UserForm(forms.ModelForm):
 class SystemUserAdmin(admin.ModelAdmin):
     form = UserForm
     add_form = UserForm
+    list_display = ('username', 'usertype', 'email', 'company', 'date_joined')
 
 class RequestTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'info')
@@ -38,7 +39,7 @@ class RequestStatusAdmin(admin.ModelAdmin):
     list_display = ('name', 'info')
 
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ('id', 'header', 'company', 'creator', 'createtime', 'reqtype', 'priority', 'status')
+    list_display = ('id', 'header', 'company', 'creator', 'createtime', 'reqtype', 'priority', 'status', 'group', 'engineer')
 
 class RequestPriorityAdmin(admin.ModelAdmin):
     list_display = ('name','info')

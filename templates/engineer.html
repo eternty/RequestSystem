@@ -1,9 +1,8 @@
 {% extends "baseconsole.html" %}
-{% block header %}Консоль клиента{% endblock %}
+{% block header %}Консоль исполнителя{% endblock %}
 {% block contentnavbar %}
-    <li class="active"><a href="#">Консоль клиента</a></li>
-    <li><a href="#">Новая заявка</a></li>
-    <li><a href="#">О компании</a></li>
+    <li class="active"><a href="#">Консоль исполнителя</a></li>
+    <li><a href="#">Компании</a></li>
     <li><a href="#">Пользователи</a></li>
     <li><a href="#">Оборудование</a></li>
 {% endblock %}
@@ -16,7 +15,7 @@
     <th>Тип</th>
     <th>Приоритет</th>
     <th>Статус</th>
-    <th>Исполнитель</th>
+    <th>Заказчик</th>
 {% endblock %}
 {% block lefttablecontent %}
     {% for myreq in myrequests %}
@@ -27,7 +26,7 @@
             <td>{{ myreq.reqtype }}</td>
             <td>{{ myreq.priority }}</td>
             <td>{{ myreq.status }}</td>
-            <td>{{ myreq.engineer.username }}</td>
+            <td>{{ myreq.creator.username }}</td>
 
         </tr>
     {% empty %}
@@ -39,7 +38,7 @@
     {% endfor %}
 {% endblock %}
 {% block righttablename %}
-    <th colspan="8" style="text-align: center">Заявки компании</th>
+    <th colspan="8" style="text-align: center">Заявки группы</th>
 {% endblock %}
 {% block righttablecolumns %}
 
