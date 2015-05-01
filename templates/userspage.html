@@ -1,0 +1,96 @@
+{% extends "base-nav.html" %}
+{% block otherbodycontent %}
+     <div class = row-fluid>
+            {% if usertype != 'Client' %}
+                <div class="col-md-8 col-md-offset-3 panel panel-info scrolling ">
+                    <div class="panel-heading"><h3>Пользователи</h3></div>
+                    <div class="panel-body">
+                        <table class=" table table-responsive ">
+                            <tbody>
+                                <tr>
+                                    <td>Фамилия</td>
+                                    <td>Имя</td>
+                                    <td>Отчество</td>
+                                    <td>Логин</td>
+                                    <td>Тип пользователя</td>
+                                    <td>Компания</td>
+                                    <td>Телефон</td>
+                                    <td>Email</td>
+                                    <td>Расположение</td>
+                                </tr>
+
+                                {% for person in men %}
+                                    <tr>
+                                        <td>{{ person.last_name }}</td>
+                                        <td>{{ person.first_name }}</td>
+                                        <td>{{ person.patronymic }}</td>
+                                        <td>{{ person.username }}</td>
+                                        <td>{{ person.usertype }}</td>
+                                        <td>{{ person.company }}</td>
+                                        <td>{{ person.phone }}</td>
+                                        <td>{{ person.email }}</td>
+                                        <td>{{ person.place }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="9">Nothing to show</td>
+                                    </tr>
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            {% else%}
+                <div class = col-md-4>
+                    <h1>{{ user.company }}</h1>
+                </div>
+                <div class = row-fluid>
+                    <div class="col-md-8 col-md-offset-3 panel panel-info">
+                        <div class="panel-heading"><h3>Пользователи</h3></div>
+                        <div class="panel-body">
+                            <table class="table-bordered table">
+                                <tbody>
+                                     <tr>
+                                    <td>Фамилия</td>
+                                    <td>Имя</td>
+                                    <td>Отчество</td>
+                                    <td>Логин</td>
+                                    <td>Тип пользователя</td>
+                                    <td>Компания</td>
+                                    <td>Телефон</td>
+                                    <td>Email</td>
+                                    <td>Расположение</td>
+                                </tr>
+
+                                        {% for person in clientusers %}
+                                            <tr>
+
+                                                <td>{{ person.last_name }}</td>
+                                                <td>{{ person.first_name }}</td>
+                                                <td>{{ person.patronymic }}</td>
+                                                <td>{{ person.username }}</td>
+                                                <td>{{ person.usertype }}</td>
+                                                <td>{{ person.company }}</td>
+                                                <td>{{ person.phone }}</td>
+                                                <td>{{ person.email }}</td>
+                                                <td>{{ person.place }}</td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="9">Nothing to show</td>
+                                            </tr>
+                                        {% endfor %}
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+        {% endif %}
+     </div>
+{% endblock %}

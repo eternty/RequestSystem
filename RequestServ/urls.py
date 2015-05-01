@@ -9,9 +9,9 @@ urlpatterns = patterns('',
     url(r'^/?$', views.index),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^companypage?$',views.companypage)
-
-
+    url(r'^companiespage?$', views.companiespage),
+    url(r'^userspage?$', views.userspage),
+    url(r'^equipspage?$',views.equipspage)
 )
 
 urlpatterns += patterns('',

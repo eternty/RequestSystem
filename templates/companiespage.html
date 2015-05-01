@@ -2,20 +2,38 @@
 {% block otherbodycontent %}
 
         <div class = row-fluid>
+
             {% if usertype != 'Client' %}
-                <div class="col-md-8 col-md-offset-3 panel panel-info">
-                    <div class="panel-heading"><h3>Компании</h3></div>
+                <div class = col-md-4>
+                    <h1>Компании</h1>
+                </div>
+
+                <div class="col-md-8 col-md-offset-3 panel panel-info scrolling">
+                    <div class="panel-heading"><h3>Информация о компаниях</h3></div>
                     <div class="panel-body">
-                        <table>
+                        <table class="table table-responsive" >
                             <tbody>
                                 <tr>
-                                    <td></td>
+                                    <td>Наименование</td>
+                                    <td>Адрес</td>
+                                    <td>Телефон</td>
+                                    <td>Представитель</td>
+                                    <td>Фокус-менеджер</td>
                                 </tr>
 
-                                {{% for comp in companies %}}
+                                {% for comp in companies %}
                                     <tr>
-                                        <td>{{  }}</td>
+                                        <td>{{ comp.name }}</td>
+                                        <td>{{ comp.address }}</td>
+                                        <td>{{ comp.phone }}</td>
+                                        <td>{{ comp.manager }}</td>
+                                        <td>{{ comp.focus }}</td>
                                     </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4">Nothing to show</td>
+                                    </tr>
+                                {% endfor %}
 
                             </tbody>
 
@@ -29,7 +47,7 @@
                 </div>
                 <div class = row-fluid>
                     <div class="col-md-6 panel panel-info">
-                        <div class="panel-heading"><h3>Информация0</h3></div>
+                        <div class="panel-heading"><h3>Информация о компании</h3></div>
                         <div class="panel-body">
                             <table class="table" >
                                     <tbody>

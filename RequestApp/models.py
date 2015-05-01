@@ -174,6 +174,9 @@ class Equipment(models.Model):
     def __unicode__(self):
         return self.serial
 
+    def get_company(self):
+        return self.contract.company
+
     class Meta:
         verbose_name = u'Оборудование'
         verbose_name_plural = u'Оборудование'

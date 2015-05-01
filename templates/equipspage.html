@@ -1,0 +1,85 @@
+{% extends "base-nav.html" %}
+{% block otherbodycontent %}
+     <div class = row-fluid>
+            {% if usertype != 'Client' %}
+                <div class="col-md-8 col-md-offset-3 panel panel-info scrolling ">
+                    <div class="panel-heading"><h3>Оборудование</h3></div>
+                    <div class="panel-body">
+                        <table class=" table table-responsive ">
+                            <tbody>
+                                <tr>
+                                    <td>Наименование</td>
+                                    <td>Серийный номер</td>
+
+                                    <td>Адрес</td>
+                                    <td>Номер договора</td>
+                                    <td>Описание</td>
+
+                                </tr>
+
+                                {% for equip in equips %}
+                                    <tr>
+                                        <td>{{ equip.name }}</td>
+                                        <td>{{ equip.serial }}</td>
+
+                                        <td>{{ equip.address }}</td>
+                                        <td>{{ equip.contract }}</td>
+                                        <td>{{ equip.description }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="9">Nothing to show</td>
+                                    </tr>
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            {% else%}
+                <div class = col-md-4>
+                    <h1>{{ user.company }}</h1>
+                </div>
+                <div class = row-fluid>
+                    <div class="col-md-8 col-md-offset-3 panel panel-info">
+                        <div class="panel-heading"><h3>Оборудование</h3></div>
+                        <div class="panel-body">
+                            <table class="table-bordered table">
+                                <tbody>
+                                     <tr>
+                                         <td>Наименование</td>
+                                         <td>Серийный номер</td>
+                                         <td>Адрес</td>
+                                         <td>Номер договора</td>
+                                         <td>Описание</td>
+
+
+                                     </tr>
+
+                                        {% for equip in client_equips %}
+                                            <tr>
+                                                <td>{{ equip.name }}</td>
+                                                <td>{{ equip.serial }}</td>
+                                                <td>{{ equip.address }}</td>
+                                                <td>{{ equip.contract }}</td>
+                                                <td>{{ equip.description }}</td>
+
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="9">Nothing to show</td>
+                                            </tr>
+                                        {% endfor %}
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+        {% endif %}
+     </div>
+{% endblock %}

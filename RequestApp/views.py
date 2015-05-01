@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # Create your views here.
-from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User
+from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User, Equipment
 
 
 @login_required(login_url='/signin')
@@ -68,13 +68,14 @@ def signin(request):
 def hello(request):
 	return HttpResponse("Hey You must be serious man, huh?")
 
-def companypage(request):
+def companiespage(request):
     usertype = request.user.usertype.name
     clientcompany = Company.objects.get(name = request.user.company)
     managername = clientcompany.manager.get_full_name()
     manager = System_User.objects.get(id=clientcompany.manager_id)
     focus = System_User.objects.get(id = clientcompany.focus_id)
     focusname = clientcompany.focus.get_full_name()
+    companies = Company.objects.all()
 
     context = {
             'clientcompany': clientcompany,
@@ -82,6 +83,30 @@ def companypage(request):
             'manager': manager,
             'focus': focus,
             'managername': managername,
-            'focusname': focusname
+            'focusname': focusname,
+            'companies': companies
         }
-    return render(request, 'companypage.html', context)
+    return render(request, 'companiespage.html', context)
+def userspage(request):
+    usertype = request.user.usertype.name
+    clientusers = System_User.objects.filter(company = request.user.company )
+    men = System_User.objects.exclude(usertype__name = 'Admin')
+
+    context = {
+        'clientusers': clientusers,
+        'usertype': usertype,
+        'men': men
+    }
+    return render(request, 'userspage.html', context)
+
+def equipspage(request):
+    usertype  = request.user.usertype.name
+    client_equips = Equipment.objects.filter(contract__company = request.user.company)
+    equips = Equipment.objects.all()
+
+    context = {
+        'usertype': usertype,
+        'client_equips': client_equips,
+        'equips': equips
+    }
+    return render (request, 'equipspage.html', context)
