@@ -45,6 +45,20 @@ class Company(models.Model):
     manager = models.ForeignKey('System_User', related_name='manager_of', blank=True, null=True)
     focus = models.ForeignKey('System_User', related_name='focus_of', blank=True, null=True)
 
+    def get_manager_name(self):
+        managername= self.manager.get_full_name()
+        return managername
+
+    def get_manager_contacts(self):
+        managercontacts = '%s %s' % (self.manager.phone, self.manager.email)
+        return managercontacts
+    def get_focus_name(self):
+        focusname = self.focus.get_full_name()
+        return focusname
+    def get_focus_contacts(self):
+        focuscontacts = '%s %s' % (self.focus.phone, self.focus.email)
+        return
+
 
 class User_type(models.Model):
     def __unicode__(self):

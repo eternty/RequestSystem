@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 # Create your views here.
-from RequestApp.models import User_type, Company, Request, Request_status, Specialization
+from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User
 
 
 @login_required(login_url='/signin')
@@ -71,12 +71,17 @@ def hello(request):
 def companypage(request):
     usertype = request.user.usertype.name
     clientcompany = Company.objects.get(name = request.user.company)
-    manager = clientcompany.manager.get_full_name()
-    focus = clientcompany.focus.get_full_name()
+    managername = clientcompany.manager.get_full_name()
+    manager = System_User.objects.get(id=clientcompany.manager_id)
+    focus = System_User.objects.get(id = clientcompany.focus_id)
+    focusname = clientcompany.focus.get_full_name()
+
     context = {
             'clientcompany': clientcompany,
             'usertype': usertype,
             'manager': manager,
-            'focus': focus
+            'focus': focus,
+            'managername': managername,
+            'focusname': focusname
         }
     return render(request, 'companypage.html', context)
