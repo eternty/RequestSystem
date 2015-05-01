@@ -1,0 +1,56 @@
+{% extends "base-nav.html" %}
+{% block header %}Заявки в работе{% endblock %}
+{% block othercontent %}
+    {% if usertype != 'Client' %}
+        <div class="row-fluid">
+            <div class = col-md-2>
+                 <h1>Заявки в работе</h1>
+            </div>
+        <div class = "row-fluid">
+            <div class="col-md-10 col-md-offset-3 panel panel-info scrolling ">
+                <div class="panel-heading"><h3>Информация по заявкам </h3></div>
+                <div class="panel-body">
+                    <table class=" table table-responsive ">
+                        <tbody>
+                            <tr>
+                                <td><b>Номер</b></td>
+                                <td><b>Заголовок</b></td>
+                                <td><b>Компания</b></td>
+                                <td><b>Тип</b></td>
+                                <td><b>Приоритет</b></td>
+                                <td><b>Заказчик</b></td>
+                                <td><b>Статус</b></td>
+                                <td><b>Исполнитель</b></td>
+                            </tr>
+
+                            {% for req in act_requests %}
+                                <tr>
+                                    <td>{{ req.id }}</td>
+                                    <td>{{ req.header }}</td>
+                                    <td>{{ req.company }}</td>
+                                    <td>{{ req.reqtype }}</td>
+                                    <td>{{ req.priority }}</td>
+                                    <td>{{ req.creator }}</td>
+                                    <td>{{ req.status }}</td>
+                                    <td>{{ req.engineer }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="8">Nothing to show</td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+        {% else %}
+        <div class="panel-warning">
+            <div class="panel-heading">Доступ запрещен</div>
+            <div></div>
+        </div>
+    {% endif %}
+{% endblock %}

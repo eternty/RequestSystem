@@ -11,7 +11,8 @@ urlpatterns = patterns('',
 
     url(r'^companiespage?$', views.companiespage),
     url(r'^userspage?$', views.userspage),
-    url(r'^equipspage?$',views.equipspage)
+    url(r'^equipspage?$',views.equipspage),
+    url(r'^active_requests?$', views.active_requests)
 )
 
 urlpatterns += patterns('',
