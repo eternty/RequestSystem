@@ -112,7 +112,7 @@ def equipspage(request):
     return render(request, 'equipspage.html', context)
 
 def active_requests(request):
-    act_requests = Request.objects.exclude(status__id = 7)
+    act_requests = Request.objects.exclude(status__id = 6)
     usertype = request.user.usertype.name
     context = {
         'act_requests': act_requests,
