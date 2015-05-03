@@ -12,7 +12,9 @@ urlpatterns = patterns('',
     url(r'^companiespage?$', views.companiespage),
     url(r'^userspage?$', views.userspage),
     url(r'^equipspage?$',views.equipspage),
-    url(r'^active_requests?$', views.active_requests)
+    url(r'^active_requests?$', views.active_requests),
+
+    url(r'^(?P<pk>[0-9]+)/DetailCompany$', views.DetailCompany)
 )
 
 urlpatterns += patterns('',

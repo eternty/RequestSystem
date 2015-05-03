@@ -20,40 +20,58 @@
                     <li><a href="#">Новая заявка</a></li>
                     <li><a href="active_requests">Заявки в работе</a></li>
                     <li><a href="#">Загрузка инженеров</a></li>
-                    <li><a href="companiespage">Компании</a></li>
-                    <li><a href="userspage">Пользователи</a></li>
-                    <li><a href="equipspage">Оборудование</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Списки <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/companiespage">Компании</a></li>
+                            <li><a href="/userspage">Пользователи</a></li>
+                            <li><a href="/equipspage">Оборудование</a></li>
+                        </ul>
+                    </li>
+
 
                 {% elif usertype == 'Dispatcher'  %}
 
                     <li class="active"><a href="#">Консоль диспетчера</a></li>
                     <li><a href="#">Новая заявка</a></li>
-                    <li><a href="active_requests">Заявки в работе</a></li>
+                    <li><a href="/active_requests">Заявки в работе</a></li>
                     <li><a href="#">Загрузка инженеров</a></li>
-                    <li><a href="companiespage">Компании</a></li>
-                    <li><a href="userspage">Пользователи</a></li>
-                    <li><a href="equipspage">Оборудование</a></li>
-                    <li><a href="#">Нормативы</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Списки
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/companiespage">Компании</a></li>
+                            <li><a href="/userspage">Пользователи</a></li>
+                            <li><a href="/equipspage">Оборудование</a></li>
+
+                        </ul>
+                    </li>
+
+
 
                 {% elif usertype == 'Engineer' %}
 
                     <li class="active"><a href="#">Консоль исполнителя</a></li>
-                    <li><a href="companiespage">Компании</a></li>
-                    <li><a href="userspage">Пользователи</a></li>
-                    <li><a href="equipspage">Оборудование</a></li>
+                    <li><a href="/companiespage">Компании</a></li>
+                    <li><a href="/userspage">Пользователи</a></li>
+                    <li><a href="/equipspage">Оборудование</a></li>
 
                 {% else %}
                     <li class="active"><a href="#">Консоль клиента</a></li>
                     <li><a href="#">Новая заявка</a></li>
-                    <li><a href="companiespage">О компании</a></li>
-                    <li><a href="userspage">Пользователи</a></li>
-                    <li><a href="equipspage">Оборудование</a></li>
+                    <li><a href="/companiespage">О компании</a></li>
+                    <li><a href="/userspage">Пользователи</a></li>
+                    <li><a href="/equipspage">Оборудование</a></li>
 
                 {% endif %}
 
   			</ul>
 
-            <button type="exit" class="btn btn-default navbar-btn pull-right">Выйти</button>
+            {% if request.user.is_athentificated %}<button type="exit" class="btn btn-default navbar-btn pull-right">Выйти</button>
             <a class="pull-right" style="margin-right: 10px; margin-top: 20px">Здравствуйте, {{ user.first_name }}</a>
 
   	</nav>

@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes import generic
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -119,3 +120,16 @@ def active_requests(request):
         'usertype': usertype
     }
     return render(request, 'active_requests.html', context)
+
+
+
+def DetailCompany(request, pk):
+    company = Company.objects.get(id = pk)
+    usertype = request.user.usertype.name
+    context = {
+        'company': company,
+        'usertype': usertype
+
+    }
+    return render(request, 'Company.html', context)
+

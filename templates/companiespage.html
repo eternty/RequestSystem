@@ -23,7 +23,7 @@
                                 </tr>
 
                                 {% for comp in companies %}
-                                    <tr>
+                                    <tr style="cursor: pointer" onclick="window.location.replace('/{{ comp.id }}/DetailCompany')" >
                                         <td>{{ comp.name }}</td>
                                         <td>{{ comp.address }}</td>
                                         <td>{{ comp.phone }}</td>
