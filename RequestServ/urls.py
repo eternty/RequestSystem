@@ -18,7 +18,8 @@ urlpatterns = patterns('',
     url(r'^get_name?$', views.get_name),
     url(r'^results?$', views.results),
     url(r'^new_request?$', views.new_request),
-    url(r'^created_request?$', views.created_request)
+    url(r'^created_request?$', views.created_request),
+    url(r'^(?P<pk>[0-9]+)/request_journal$', views.request_journal)
 )
 
 urlpatterns += patterns('',

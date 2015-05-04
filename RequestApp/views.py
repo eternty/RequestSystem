@@ -3,11 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes import generic
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import NameForm, RequestForm, ClientRequestForm
+from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm
 
 
 # Create your views here.
-from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User, Equipment
+from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User, Equipment, \
+    Comment
 
 
 @login_required(login_url='/signin')
@@ -238,3 +239,16 @@ def new_request(request):
 
 def created_request(request):
     return render(request, 'created_request.html', )
+
+def request_journal(request, pk):
+    usertype = request.user.usertype.name
+    needed_request = Request.objects.get(id = pk)
+    reqform= ShowRequestForm(instance = needed_request)
+    comments = Comment.objects.filter(request__id = pk)
+    context = {
+        'form': reqform,
+        'usertype': usertype,
+        'comments': comments
+    }
+
+    return render(request, 'request_journal.html', context)

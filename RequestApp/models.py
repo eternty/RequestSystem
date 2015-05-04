@@ -271,7 +271,7 @@ class Comment(models.Model):
     author = models.ForeignKey(System_User)
     content = models.CharField(max_length=250)
     request = models.ForeignKey(Request)
-    date_time = models.DateTimeField(auto_now=False, auto_now_add=True, blank=True, null=True)
+    date_time = models.DateTimeField(default=timezone.now)
 
 
 class Replacement(models.Model):

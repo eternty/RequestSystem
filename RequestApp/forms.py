@@ -18,3 +18,8 @@ class ClientRequestForm(ModelForm):
     class Meta:
         model = Request
         fields = ['reqtype', 'priority', 'header', 'info',  'equipment']
+
+class ShowRequestForm(ModelForm):
+    class Meta:
+        model = Request
+        fields= '__all__'

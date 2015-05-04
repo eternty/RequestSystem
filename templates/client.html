@@ -14,7 +14,7 @@
 {% endblock %}
 {% block lefttablecontent %}
     {% for myreq in myrequests %}
-        <tr>
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ myreq.id }}/request_journal')">
 
             <td>{{ myreq.id }}</td>
             <td>{{ myreq.header }}</td>
