@@ -72,8 +72,6 @@ class User_type(models.Model):
     info = models.CharField(max_length=100)
 
 
-
-
 class System_User(AbstractBaseUser, PermissionsMixin):
     objects = MyUserManager()
 
@@ -230,16 +228,16 @@ class Request(models.Model):
         verbose_name = u'Заявка'
         verbose_name_plural = u'Заявки'
 
-    company = models.ForeignKey(Company)
-    creator = models.ForeignKey(System_User, related_name='creator_of')
-    reqtype = models.ForeignKey(Request_type)
-    priority = models.ForeignKey(Request_priority)
-    header = models.CharField(max_length=30)
-    info = models.TextField(max_length=200)
-    status = models.ForeignKey(Request_status)
-    dispatcher = models.ForeignKey(System_User, blank=True, null=True, related_name='dispatcher_of')
-    group = models.ForeignKey(Groups_engineer, blank=True, null=True)
-    engineer = models.ForeignKey(System_User, blank=True, null=True, related_name='engineer_of')
+    company = models.ForeignKey(Company,  verbose_name="компания")
+    creator = models.ForeignKey(System_User, related_name='creator_of', verbose_name="заявитель" )
+    reqtype = models.ForeignKey(Request_type, verbose_name="тип заявки")
+    priority = models.ForeignKey(Request_priority, verbose_name="приоритет")
+    header = models.CharField(max_length=30, verbose_name="заголовок")
+    info = models.TextField(max_length=200, verbose_name="краткая информация")
+    status = models.ForeignKey(Request_status, verbose_name="статус")
+    dispatcher = models.ForeignKey(System_User, blank=True, null=True, related_name='dispatcher_of', verbose_name="диспетчер")
+    group = models.ForeignKey(Groups_engineer, blank=True, null=True, verbose_name= "группа")
+    engineer = models.ForeignKey(System_User, blank=True, null=True, related_name='engineer_of',verbose_name="исполнитель")
     createtime = models.DateTimeField(default=timezone.now)
     REQUEST_MARKS = (
         ('EF', 'Engineer_fault'),
@@ -247,10 +245,10 @@ class Request(models.Model):
         ('ED', 'Disp_engineer_faults'),
         ('OK', 'All in time')
     )
-    mark = models.CharField(max_length=2, choices=REQUEST_MARKS, default='OK')
-    equipment = models.ForeignKey(Equipment, blank=True, null=True)
-    approvement = models.BooleanField(default=False)
-    solution = models.CharField(max_length=250,null=True,blank=True)
+    mark = models.CharField(max_length=2, choices=REQUEST_MARKS, default='OK', verbose_name="оценка выполнения SLA")
+    equipment = models.ForeignKey(Equipment, blank=True, null=True, verbose_name=" оборудование ")
+    approvement = models.BooleanField(default=False, verbose_name= "подтверждение")
+    solution = models.CharField(max_length=250,null=True,blank=True, verbose_name="решение")
 
 
 class Execution_time(models.Model):

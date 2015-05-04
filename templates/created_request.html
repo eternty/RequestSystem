@@ -1,0 +1,19 @@
+{% extends "base-nav.html" %}
+{% block header %}Заявка зарегистрирована{% endblock %}
+{% block otherbodycontent %}
+    <div class = row>
+        <div class = "col-md-6 col-md-offset-2">
+            <div class="alert alert-success">
+                <h4>Уважаемый {{ username }}! Ваша заявка " {{ created_request.header }}" № {{ created_request.id }} зарегистрирована!</h4>
+            </div>
+        </div>
+    </div>
+    <div class= row>
+        <div class = "col-md-6 col-md-offset-2">
+           <a href="#"><p>Открыть журнал заявки</p></a>
+        </div>
+
+    </div>
+
+
+{% endblock %}
