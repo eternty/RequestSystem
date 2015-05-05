@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes import generic
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm
+from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm, NewCommentForm
 
 
 # Create your views here.
@@ -244,11 +244,55 @@ def request_journal(request, pk):
     usertype = request.user.usertype.name
     needed_request = Request.objects.get(id = pk)
     reqform= ShowRequestForm(instance = needed_request)
+    commentform = NewCommentForm()
     comments = Comment.objects.filter(request__id = pk)
     context = {
-        'form': reqform,
+        'reqform': reqform,
         'usertype': usertype,
-        'comments': comments
+        'comments': comments,
+        'commentform': commentform,
+        'req_id': pk
     }
+
+    return render(request, 'request_journal.html', context)
+
+def add_comment(request, pk):
+    usertype = request.user.usertype.name
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        commentform = NewCommentForm(request.POST)
+        # check whether it's valid:
+        if commentform.is_valid():
+            creating_comment = commentform.save(commit=False)
+            creating_comment.author = request.user
+            creating_comment.request = Request.objects.get(id = pk)
+            creating_comment.save()
+            needed_request = Request.objects.get(id = pk)
+            reqform= ShowRequestForm(instance = needed_request)
+            comments = Comment.objects.filter(request__id = pk)
+            context = {
+
+                'usertype': usertype,
+                'reqform': reqform,
+                'comments': comments,
+                'commentform': commentform,
+                'req_id': pk
+
+            }
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return render(request, 'request_journal.html', context)
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        usertype = request.user.usertype.name
+        commentform = NewCommentForm()
+        context = {
+                'pk': pk,
+                'usertype': usertype,
+                'commentform': commentform
+            }
+
 
     return render(request, 'request_journal.html', context)

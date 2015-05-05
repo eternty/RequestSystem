@@ -246,7 +246,7 @@ class Request(models.Model):
         ('OK', 'All in time')
     )
     mark = models.CharField(max_length=2, choices=REQUEST_MARKS, default='OK', verbose_name="оценка выполнения SLA")
-    equipment = models.ForeignKey(Equipment, blank=True, null=True, verbose_name=" оборудование ")
+    equipment = models.ForeignKey(Equipment, blank=True, null=True, verbose_name="оборудование ")
     approvement = models.BooleanField(default=False, verbose_name= "подтверждение")
     solution = models.CharField(max_length=250,null=True,blank=True, verbose_name="решение")
 
@@ -269,7 +269,7 @@ class Comment(models.Model):
         verbose_name = u'Коммент'
         verbose_name_plural = u'Комменты'
     author = models.ForeignKey(System_User)
-    content = models.CharField(max_length=250)
+    content = models.CharField(max_length=250, verbose_name= "Комментарий")
     request = models.ForeignKey(Request)
     date_time = models.DateTimeField(default=timezone.now)
 

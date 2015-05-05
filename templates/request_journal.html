@@ -13,7 +13,7 @@
 	            </div>
 	            <div class="panel-body">
                     <table class=" table table-responsive">
-                        {{ form.as_table }}
+                        {{ reqform.as_table }}
                     </table>
                 </div>
             </div>
@@ -38,11 +38,11 @@
                         {% endfor %}
                     </ul>
 
-                        <form action="/add_comment" method="post">
+                        <form action="/{{ req_id }}/add_comment" method="post">
                             <div class = "row">
                                 <div class="col-sm-8">
-                                    <label for="inputEmail4" class="col-sm-3 control-label " id = "inputEmail4">Комментарий</label>
-                                    <textarea class="form-control inputfield" rows="6" placeholder="Комментарий"></textarea>
+                                    {% csrf_token %}
+                                    {{ commentform }}
                                 </div>
                             </div>
                             <div class = "row">

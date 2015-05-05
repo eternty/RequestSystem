@@ -1,7 +1,7 @@
 __author__ = 'eternty'
 from django import forms
 from django.forms import ModelForm
-from RequestApp.models import Request, Equipment
+from RequestApp.models import Request, Equipment, Comment
 
 
 class NameForm(forms.Form):
@@ -23,3 +23,8 @@ class ShowRequestForm(ModelForm):
     class Meta:
         model = Request
         fields= '__all__'
+
+class NewCommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
