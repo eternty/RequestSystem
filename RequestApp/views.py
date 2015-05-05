@@ -241,6 +241,23 @@ def created_request(request):
     return render(request, 'created_request.html', )
 
 def request_journal(request, pk):
+
+    if request.method == 'POST':
+        given_form = ShowRequestForm(request.POST)
+        if changed_form.is_valid():
+
+            context = {
+                'name': name,
+                'usertype': usertype,
+
+            }
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return render(request, 'results.html', context)
+
+
+
     usertype = request.user.usertype.name
     needed_request = Request.objects.get(id = pk)
     reqform= ShowRequestForm(instance = needed_request)
@@ -270,12 +287,13 @@ def add_comment(request, pk):
             needed_request = Request.objects.get(id = pk)
             reqform= ShowRequestForm(instance = needed_request)
             comments = Comment.objects.filter(request__id = pk)
+            commentform2= NewCommentForm()
             context = {
 
                 'usertype': usertype,
                 'reqform': reqform,
                 'comments': comments,
-                'commentform': commentform,
+                'commentform': commentform2,
                 'req_id': pk
 
             }

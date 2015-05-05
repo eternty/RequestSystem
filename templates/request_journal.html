@@ -12,9 +12,12 @@
 	                Детали заявки
 	            </div>
 	            <div class="panel-body">
-                    <table class=" table table-responsive">
-                        {{ reqform.as_table }}
-                    </table>
+                    <form action="/{{ req.id }}/request_journal" method="post">
+                        <table class=" table table-responsive">
+                            {{ reqform.as_table }}
+                        </table>
+                        <input type="submit" value="Сохранить" />
+                    </form>
                 </div>
             </div>
         </div>
