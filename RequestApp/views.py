@@ -69,7 +69,7 @@ def signin(request):
         login(request, user)
         return redirect("/")
     else:
-        return render(request, 'SignIn.html')
+        return render(request, 'signIn.html')
 
 
 def hello(request):
@@ -141,7 +141,7 @@ def DetailCompany(request, pk):
         'usertype': usertype
 
     }
-    return render(request, 'Company.html', context)
+    return render(request, 'сompany.html', context)
 
 
 def test(request):
