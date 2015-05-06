@@ -1,3 +1,5 @@
+# coding=utf-8
+import json
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes import generic
@@ -8,7 +10,7 @@ from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm, Ne
 
 # Create your views here.
 from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User, Equipment, \
-    Comment
+    Comment, Groups_engineer
 
 
 @login_required(login_url='/signin')
@@ -242,35 +244,35 @@ def created_request(request):
 
 def request_journal(request, pk):
 #to be ended
-
     if request.method == 'POST':
+        name = request.user.get_full_name()
+        usertype = request.user.usertype.name
+
         given_form = ShowRequestForm(request.POST)
-        if changed_form.is_valid():
 
+        if given_form.is_valid():
             context = {
-                'name': name,
-                'usertype': usertype,
+            'name': name,
+            'usertype': usertype
 
-            }
+        }
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return render(request, 'results.html', context)
-
-
-
-    usertype = request.user.usertype.name
-    needed_request = Request.objects.get(id = pk)
-    reqform= ShowRequestForm(instance = needed_request)
-    commentform = NewCommentForm()
-    comments = Comment.objects.filter(request__id = pk)
-    context = {
-        'reqform': reqform,
-        'usertype': usertype,
-        'comments': comments,
-        'commentform': commentform,
-        'reqobject': needed_request
-    }
+            #return render(request, 'results.html', context)
+    else:
+        usertype = request.user.usertype.name
+        needed_request = Request.objects.get(id = pk)
+        reqform= ShowRequestForm(instance = needed_request)
+        commentform = NewCommentForm()
+        comments = Comment.objects.filter(request__id = pk)
+        context = {
+            'reqform': reqform,
+            'usertype': usertype,
+            'comments': comments,
+            'commentform': commentform,
+            'reqobject': needed_request
+        }
 
     return render(request, 'request_journal.html', context)
 
@@ -295,7 +297,7 @@ def add_comment(request, pk):
                 'reqform': reqform,
                 'comments': comments,
                 'commentform': commentform2,
-                'req_id': pk
+                'reqobject': needed_request
 
             }
             # process the data in form.cleaned_data as required
@@ -315,3 +317,14 @@ def add_comment(request, pk):
 
 
     return render(request, 'request_journal.html', context)
+
+
+def get_engineers_by_group(request):
+    group_id = request.GET.get('group_id')
+
+    if group_id:
+        ids = Specialization.objects.values_list('engineer_id', flat=True).filter(group__id=int(group_id))
+    else:
+        ids = []
+
+    return HttpResponse(json.dumps({'ids': list(ids)}), content_type='application/json')

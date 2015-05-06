@@ -38,7 +38,7 @@
                         </tbody>
 
                     </table>
-                    <form action="/{{ req.id }}/request_journal" method="post">
+                    <form action="/{{ reqobject.id }}/request_journal" method="post">
                         <table class=" table table-responsive">
                             {{ reqform.as_table }}
                         </table>
@@ -67,7 +67,7 @@
                         {% endfor %}
                     </ul>
 
-                        <form action="/{{ req_id }}/add_comment" method="post">
+                        <form action="/{{ reqobject.id }}/add_comment" method="post">
                             <div class = "row">
                                 <div class="col-sm-8">
                                     {% csrf_token %}
@@ -85,4 +85,9 @@
 		</div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {% load staticfiles %}
+    <script src="{% static 'js/request_journal.js' %}"></script>
 {% endblock %}
