@@ -241,6 +241,7 @@ def created_request(request):
     return render(request, 'created_request.html', )
 
 def request_journal(request, pk):
+#to be ended
 
     if request.method == 'POST':
         given_form = ShowRequestForm(request.POST)
@@ -268,7 +269,7 @@ def request_journal(request, pk):
         'usertype': usertype,
         'comments': comments,
         'commentform': commentform,
-        'req_id': pk
+        'reqobject': needed_request
     }
 
     return render(request, 'request_journal.html', context)

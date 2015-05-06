@@ -22,7 +22,7 @@ class ClientRequestForm(ModelForm):
 class ShowRequestForm(ModelForm):
     class Meta:
         model = Request
-        fields= '__all__'
+        exclude = ['id', 'company', 'header', 'info', 'approvement','createtime','mark', 'solution' ]
 
 class NewCommentForm(ModelForm):
     class Meta:

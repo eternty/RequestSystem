@@ -12,6 +12,32 @@
 	                Детали заявки
 	            </div>
 	            <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead></thead>
+                        <tbody>
+                            <tr>
+                                <td>№заявки</td>
+                                <td>{{ reqobject.id }}</td>
+                            </tr>
+                            <tr>
+                                <td>Компания</td>
+                                <td>{{ reqobject.company }}</td>
+                            </tr>
+                            <tr>
+                                <td>Заголовок</td>
+                                <td>{{ reqobject.header}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-info">Краткая информация</td>
+                                <td>{{ reqobject.info }}</td>
+                            </tr>
+                            <tr>
+                                <td>Дата создания</td>
+                                <td>{{ reqobject.createtime }}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
                     <form action="/{{ req.id }}/request_journal" method="post">
                         <table class=" table table-responsive">
                             {{ reqform.as_table }}
