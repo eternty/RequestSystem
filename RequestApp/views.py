@@ -244,34 +244,47 @@ def created_request(request):
 
 def request_journal(request, pk):
 #to be ended
+
+    usertype = request.user.usertype.name
+    commentform = NewCommentForm()
+    comments = Comment.objects.filter(request__id = pk)
+
+
     if request.method == 'POST':
-        name = request.user.get_full_name()
-        usertype = request.user.usertype.name
-
-        given_form = ShowRequestForm(request.POST)
-
-        if given_form.is_valid():
+        our_request = Request.objects.get(id = pk)
+        changed_form = ShowRequestForm(request.POST)
+        changed_form.save(commit=False)
+        if changed_form.is_valid():
+            our_request.engineer = changed_form.cleaned_data['engineer']
+            our_request.group = changed_form.cleaned_data['group']
+            our_request.dispatcher = changed_form.cleaned_data['dispatcher']
+            our_request.creator = changed_form.cleaned_data['creator']
+            our_request.equipment = changed_form.cleaned_data['equipment']
+            our_request.priority = changed_form.cleaned_data['priority']
+            our_request.reqtype = changed_form.cleaned_data['reqtype']
+            our_request.status = changed_form.cleaned_data['status']
+            our_request.save()
+            reqform = ShowRequestForm(instance=our_request)
             context = {
-            'name': name,
-            'usertype': usertype
+                'reqform': reqform,
+                'usertype': usertype,
+                'comments': comments,
+                'commentform': commentform,
+                'reqobject': our_request
+            }
 
-        }
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            #return render(request, 'results.html', context)
+        else:
+            return HttpResponse("Error!")
+
     else:
-        usertype = request.user.usertype.name
-        needed_request = Request.objects.get(id = pk)
-        reqform= ShowRequestForm(instance = needed_request)
-        commentform = NewCommentForm()
-        comments = Comment.objects.filter(request__id = pk)
+        our_request = Request.objects.get(id = pk)
+        reqform= ShowRequestForm(instance = our_request)
         context = {
-            'reqform': reqform,
-            'usertype': usertype,
-            'comments': comments,
-            'commentform': commentform,
-            'reqobject': needed_request
+                'reqform': reqform,
+                'usertype': usertype,
+                'comments': comments,
+                'commentform': commentform,
+                'reqobject': our_request
         }
 
     return render(request, 'request_journal.html', context)
