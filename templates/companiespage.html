@@ -51,47 +51,48 @@
                         <div class="panel-heading"><h3>Информация о компании</h3></div>
                         <div class="panel-body">
                             <table class="table" >
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="2" style="text-align: center"><b>Телефон:</b></td>
-                                            <td colspan="2"style="text-align: left"><p>{{ clientcompany.phone }}</p></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" style="text-align: center"><b>Адрес:</b></td>
-                                            <td colspan ="2" style="border-bottom-width:0px; text-align: left "><p>{{ clientcompany.address }}</p></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" style="border-width: 0px"></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" style="border-width: 0px"></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" style = "text-align: center; border-top-width: 0px"><b>Представительство</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td><b>Ф.И.О</b></td>
-                                            <td><b>Телефон</b></td>
-                                            <td><b>Email</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Менеджер:</b></td>
-                                            <td><p>{{ managername }}</p></td>
-                                            <td><p>{{ manager.phone }}</p></td>
-                                            <td><p>{{ manager.email }}</p></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Фокус-менеджер:</b></td>
-                                            <td><p>{{ focusname }}</p></td>
-                                            <td><p>{{ fosus.phone }}</p></td>
-                                            <td><p>{{ focus.email }}</p></td>
-                                        </tr>
-                                    </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center"><b>Телефон:</b></td>
+                                        <td colspan="2"style="text-align: left"><p>{{ clientcompany.phone }}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center"><b>Адрес:</b></td>
+                                        <td colspan ="2" style="border-bottom-width:0px; text-align: left "><p>{{ clientcompany.address }}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="border-width: 0px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="border-width: 0px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style = "text-align: center; border-top-width: 0px"><b>Представительство</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><b>Ф.И.О</b></td>
+                                        <td><b>Телефон</b></td>
+                                        <td><b>Email</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Менеджер:</b></td>
+                                        <td><p>{{ managername }}</p></td>
+                                        <td><p>{{ manager.phone }}</p></td>
+                                        <td><p>{{ manager.email }}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Фокус-менеджер:</b></td>
+                                        <td><p>{{ focusname }}</p></td>
+                                        <td><p>{{ fosus.phone }}</p></td>
+                                        <td><p>{{ focus.email }}</p></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-        {% endif %}
+
+            {% endif %}
 
 {% endblock %}

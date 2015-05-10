@@ -27,7 +27,7 @@
                                 </tr>
 
                                 {% for person in men %}
-                                    <tr>
+                                    <tr style="cursor: pointer" onclick="window.location.replace('/{{ person.id }}/user')" >
                                         <td>{{ person.last_name }}</td>
                                         <td>{{ person.first_name }}</td>
                                         <td>{{ person.patronymic }}</td>

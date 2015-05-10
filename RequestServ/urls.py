@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^created_request/?$', views.created_request),
     url(r'^(?P<pk>[0-9]+)/request_journal/?$', views.request_journal),
     url(r'^(?P<pk>[0-9]+)/add_comment/?$', views.add_comment),
-
+    url(r'^(?P<pk>[0-9]+)/user/?$',views.user),
     url(r'^engineers_by_group/?$', views.get_engineers_by_group)
 )
 

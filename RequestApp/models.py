@@ -121,7 +121,8 @@ class System_User(AbstractBaseUser, PermissionsMixin):
 class Contract(models.Model):
     def __unicode__(self):
         return self.number
-
+    def get_company(self):
+        return self.company
     class Meta:
         verbose_name = u'Договор'
         verbose_name_plural = u'Договоры'

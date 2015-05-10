@@ -10,7 +10,7 @@ from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm, Ne
 
 # Create your views here.
 from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User, Equipment, \
-    Comment, Groups_engineer
+    Comment, Groups_engineer, Contract
 
 
 @login_required(login_url='/signin')
@@ -136,9 +136,23 @@ def active_requests(request):
 def DetailCompany(request, pk):
     company = Company.objects.get(id=pk)
     usertype = request.user.usertype.name
+    users = System_User.objects.filter(company=company)
+    contracts = Contract.objects.filter(company = company)
+    equips = Equipment.objects.filter(contract__company = company)
+    managername = company.manager.get_full_name()
+    manager = System_User.objects.get(id=company.manager_id)
+    focus = System_User.objects.get(id=company.focus_id)
+    focusname = company.focus.get_full_name()
     context = {
         'company': company,
-        'usertype': usertype
+        'usertype': usertype,
+        'users':users,
+        'contacts':contracts,
+        'equips': equips,
+        'managername':managername,
+        'manager':manager,
+        'focus':focus,
+        'focusname':focusname
 
     }
     return render(request, 'сompany.html', context)
@@ -248,7 +262,7 @@ def request_journal(request, pk):
     usertype = request.user.usertype.name
     commentform = NewCommentForm()
     comments = Comment.objects.filter(request__id = pk)
-
+    equips = Equipment.objects.filter()
 
     if request.method == 'POST':
         our_request = Request.objects.get(id = pk)
@@ -284,7 +298,8 @@ def request_journal(request, pk):
                 'usertype': usertype,
                 'comments': comments,
                 'commentform': commentform,
-                'reqobject': our_request
+                'reqobject': our_request,
+                'equips':equips
         }
 
     return render(request, 'request_journal.html', context)
@@ -341,3 +356,20 @@ def get_engineers_by_group(request):
         ids = []
 
     return HttpResponse(json.dumps({'ids': list(ids)}), content_type='application/json')
+
+
+def user(request, pk):
+    usertype = request.user.usertype.name
+    user = System_User.objects.get(id = pk)
+    active_requests = Request.objects.exclude(status__id = 6)
+    open_requests = active_requests.filter(creator = user)
+    work_on_request = active_requests.filter(engineer = user)
+    open_dispatched_req = active_requests.filter(dispatcher = user)
+    context = {
+        'usertype': usertype,
+        'user': user,
+        'open_requests':open_requests,
+        'work_on_request':work_on_request,
+        'open_dispatched_req':open_dispatched_req
+    }
+    return render(request,'User.html', context)

@@ -1,0 +1,127 @@
+{% extends "base-nav.html" %}
+{% block header %}Пользователь{% endblock %}
+{% block otherbodycontent %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-4  panel panel-info scrolling ">
+                <div class="panel-heading"><h3 style="text-align: center">Основная информация</h3></div>
+                <div class="panel-body">
+                    <table class=" table table-responsive ">
+                        <tbody>
+                        <tr>
+                            <td><b>Фамилия</b></td>
+                            <td>{{ user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Имя</b></td>
+                            <td>{{ user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Отчество</b></td>
+                            <td>{{ user.patronymic }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Логин</b></td>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Тип пользователя</b></td>
+                            <td>{{ user.usertype }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Компания</b></td>
+                            <td>{{ user.company }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Телефон</b></td>
+                            <td>{{ user.phone }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Email</b></td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Расположение</b></td>
+                            <td>{{ user.place }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-8  panel panel-info scrolling">
+                {% if user.usertype == 'Client' %}
+                    <div class="panel-heading">Созданные заявки</div>
+                    <div class="panel-body">
+                        <table class=" table table-responsive ">
+                            <tbody>
+                                <tr>
+                                    <td><b>Номер</b></td>
+                                    <td><b>Заголовок</b></td>
+
+                                    <td><b>Тип</b></td>
+                                    <td><b>Приоритет</b></td>
+                                    <td><b>Дата создания</b></td>
+                                    <td><b>Статус</b></td>
+                                    <td><b>Исполнитель</b></td>
+                                </tr>
+
+                                {% for req in open_requests %}
+                                    <tr>
+                                        <td>{{ req.id }}</td>
+                                        <td>{{ req.header }}</td>
+
+                                        <td>{{ req.reqtype }}</td>
+                                        <td>{{ req.priority }}</td>
+                                        <td>{{ req.createtime }}</td>
+                                        <td>{{ req.status }}</td>
+                                        <td>{{ req.engineer }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="8">Nothing to show</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                     <div class="panel-heading">Выполняемые заявки</div>
+                     <div class="panel-body">
+                         <table class=" table table-responsive ">
+                             <tbody>
+                                 <tr>
+                                     <td><b>Номер</b></td>
+                                     <td><b>Заголовок</b></td>
+                                     <td><b>Заказчик</b></td>
+                                     <td><b>Тип</b></td>
+                                     <td><b>Приоритет</b></td>
+                                     <td><b>Дата создания</b></td>
+                                     <td><b>Статус</b></td>
+
+                                 </tr>
+
+                                 {% for req in open_requests %}
+                                     <tr>
+                                         <td>{{ req.id }}</td>
+                                         <td>{{ req.header }}</td>
+                                         <td>{{ req.creator }}</td>
+                                         <td>{{ req.reqtype }}</td>
+                                         <td>{{ req.priority }}</td>
+                                         <td>{{ req.createtime }}</td>
+                                         <td>{{ req.status }}</td>
+
+                                     </tr>
+                                 {% empty %}
+                                     <tr>
+                                         <td colspan="8">Nothing to show</td>
+                                     </tr>
+                                 {% endfor %}
+                             </tbody>
+                        </table>
+                     </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
