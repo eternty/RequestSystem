@@ -48,80 +48,54 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-8  panel panel-info scrolling">
-                {% if user.usertype == 'Client' %}
-                    <div class="panel-heading">Созданные заявки</div>
+
+
+                <div class="col-md-8  panel panel-info scrolling">
+                    <div class="panel-heading">Активные заявки</div>
                     <div class="panel-body">
                         <table class=" table table-responsive ">
                             <tbody>
-                                <tr>
-                                    <td><b>Номер</b></td>
-                                    <td><b>Заголовок</b></td>
-
-                                    <td><b>Тип</b></td>
-                                    <td><b>Приоритет</b></td>
-                                    <td><b>Дата создания</b></td>
-                                    <td><b>Статус</b></td>
-                                    <td><b>Исполнитель</b></td>
+                            <tr>
+                                <td><b>Номер</b></td>
+                                <td><b>Заголовок</b></td>
+                                <td><b>Тип</b></td>
+                                <td><b>Приоритет</b></td>
+                                <td><b>Дата создания</b></td>
+                                <td><b>Статус</b></td>
+                                <td><b>Заказчик</b></td>
+                                <td><b>Исполнитель</b></td>
+                            </tr>
+                            {% for req in open_requests %}
+                                <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/request_journal')" >
+                                    <td>{{ req.id }}</td>
+                                    <td>{{ req.header }}</td>
+                                    <td>{{ req.reqtype }}</td>
+                                    <td>{{ req.priority }}</td>
+                                    <td>{{ req.createtime }}</td>
+                                    <td>{{ req.status }}</td>
+                                    <td>{{ req.creator }}</td>
+                                    <td>{{ req.engineer }}</td>
                                 </tr>
 
-                                {% for req in open_requests %}
-                                    <tr>
-                                        <td>{{ req.id }}</td>
-                                        <td>{{ req.header }}</td>
+                            {% endfor %}
 
-                                        <td>{{ req.reqtype }}</td>
-                                        <td>{{ req.priority }}</td>
-                                        <td>{{ req.createtime }}</td>
-                                        <td>{{ req.status }}</td>
-                                        <td>{{ req.engineer }}</td>
-                                    </tr>
-                                {% empty %}
-                                    <tr>
-                                        <td colspan="8">Nothing to show</td>
-                                    </tr>
-                                {% endfor %}
+                            {% for req in work_on_request %}
+                                <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/request_journal')" >
+                                    <td>{{ req.id }}</td>
+                                    <td>{{ req.header }}</td>
+                                    <td>{{ req.reqtype }}</td>
+                                    <td>{{ req.priority }}</td>
+                                    <td>{{ req.createtime }}</td>
+                                    <td>{{ req.status }}</td>
+                                    <td>{{ req.creator }}</td>
+                                    <td>{{ req.engineer }}</td>
+                                </tr>
+
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
-                {% else %}
-                     <div class="panel-heading">Выполняемые заявки</div>
-                     <div class="panel-body">
-                         <table class=" table table-responsive ">
-                             <tbody>
-                                 <tr>
-                                     <td><b>Номер</b></td>
-                                     <td><b>Заголовок</b></td>
-                                     <td><b>Заказчик</b></td>
-                                     <td><b>Тип</b></td>
-                                     <td><b>Приоритет</b></td>
-                                     <td><b>Дата создания</b></td>
-                                     <td><b>Статус</b></td>
-
-                                 </tr>
-
-                                 {% for req in open_requests %}
-                                     <tr>
-                                         <td>{{ req.id }}</td>
-                                         <td>{{ req.header }}</td>
-                                         <td>{{ req.creator }}</td>
-                                         <td>{{ req.reqtype }}</td>
-                                         <td>{{ req.priority }}</td>
-                                         <td>{{ req.createtime }}</td>
-                                         <td>{{ req.status }}</td>
-
-                                     </tr>
-                                 {% empty %}
-                                     <tr>
-                                         <td colspan="8">Nothing to show</td>
-                                     </tr>
-                                 {% endfor %}
-                             </tbody>
-                        </table>
-                     </div>
-
-                {% endif %}
+                </div>
             </div>
-        </div>
     </div>
 {% endblock %}

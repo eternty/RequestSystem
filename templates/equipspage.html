@@ -23,7 +23,7 @@
                                     </tr>
 
                                     {% for equip in equips %}
-                                        <tr>
+                                        <tr style="cursor: pointer" onclick="window.location.replace('/{{ equip.id }}/equipment')" >
                                             <td>{{ equip.name }}</td>
                                             <td>{{ equip.serial }}</td>
                                             <td>{{ equip.address }}</td>

@@ -173,7 +173,6 @@ class Equipment(models.Model):
     def __unicode__(self):
         return self.serial
 
-
     class Meta:
         verbose_name = u'Оборудование'
         verbose_name_plural = u'Оборудование'

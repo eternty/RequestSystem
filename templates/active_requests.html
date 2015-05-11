@@ -24,7 +24,7 @@
                             </tr>
 
                             {% for req in act_requests %}
-                                <tr>
+                                <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/request_journal')" >
                                     <td>{{ req.id }}</td>
                                     <td>{{ req.header }}</td>
                                     <td>{{ req.company }}</td>

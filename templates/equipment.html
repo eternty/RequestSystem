@@ -1,0 +1,43 @@
+{% extends "base-nav.html" %}
+{% block header %}Оборудование{% endblock %}
+{% block otherbodycontent %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-4"><h1>{{ equip.name }}</h1></div>
+        </div>
+        <div class ="row-fluid">
+            <div class="col-md-6 panel panel-info">
+                <div class="panel-heading">Информация об оборудовании</div>
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <td><b>Компания</b></td>
+                                <td>{{ company }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Серийный номер</b></td>
+                                <td>{{ equip.serial  }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Адрес расположения</b></td>
+                                <td>{{ equip.address }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Договор</b></td>
+                                <td>{{ equip.contract }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Описание</b></td>
+                                <td>{{ equip.description }}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

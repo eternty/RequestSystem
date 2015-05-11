@@ -362,14 +362,27 @@ def user(request, pk):
     usertype = request.user.usertype.name
     user = System_User.objects.get(id = pk)
     active_requests = Request.objects.exclude(status__id = 6)
-    open_requests = active_requests.filter(creator = user)
+    opened_requests = active_requests.filter(creator = user)
     work_on_request = active_requests.filter(engineer = user)
     open_dispatched_req = active_requests.filter(dispatcher = user)
     context = {
+        'role': user.usertype,
         'usertype': usertype,
         'user': user,
-        'open_requests':open_requests,
+        'open_requests':opened_requests,
         'work_on_request':work_on_request,
         'open_dispatched_req':open_dispatched_req
     }
     return render(request,'User.html', context)
+
+def equipment(request, pk):
+    usertype = request.user.usertype.name
+    equip = Equipment.objects.get(id = pk)
+    company = equip.contract.get_company()
+    context = {
+        'equip':equip,
+        'usertype': usertype,
+        'company': company
+
+    }
+    return render(request,'equipment.html', context)

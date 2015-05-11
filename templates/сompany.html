@@ -19,12 +19,8 @@
                                 <td colspan="2" style="text-align: center"><b>Адрес:</b></td>
                                 <td colspan ="2" style="border-bottom-width:0px; text-align: left "><p>{{ company.address }}</p></td>
                             </tr>
-                            <tr>
-                                <td colspan="4" style="border-width: 0px"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="border-width: 0px"></td>
-                            </tr>
+
+
                             <tr>
                                 <td colspan="4" style = "text-align: center; border-top-width: 0px"><b>Представительство</b></td>
                             </tr>
@@ -34,13 +30,13 @@
                                 <td><b>Телефон</b></td>
                                 <td><b>Email</b></td>
                             </tr>
-                            <tr>
+                            <tr style="cursor: pointer" onclick="window.location.replace('/{{ manager.id }}/user')" >
                                 <td><b>Менеджер:</b></td>
                                 <td><p>{{ managername }}</p></td>
                                 <td><p>{{ manager.phone }}</p></td>
                                 <td><p>{{ manager.email }}</p></td>
                             </tr>
-                            <tr>
+                            <tr style="cursor: pointer" onclick="window.location.replace('/{{ focus.id }}/user')" >
                                 <td><b>Фокус-менеджер:</b></td>
                                 <td><p>{{ focusname }}</p></td>
                                 <td><p>{{ fosus.phone }}</p></td>
@@ -70,7 +66,7 @@
                                 </tr>
 
                                 {% for person in users %}
-                                    <tr>
+                                    <tr style="cursor: pointer" onclick="window.location.replace('/{{ person.id }}/user')" >
                                         <td>{{ person.last_name }}</td>
                                         <td>{{ person.first_name }}</td>
                                         <td>{{ person.patronymic }}</td>
@@ -106,7 +102,7 @@
                                 <td><b>Описание</b></td>
                             </tr>
                             {% for equip in equips %}
-                                <tr>
+                                <tr style="cursor: pointer" onclick="window.location.replace('/{{ equip.id }}/equipment')" >
                                     <td>{{ equip.name }}</td>
                                     <td>{{ equip.serial }}</td>
                                     <td>{{ equip.address }}</td>
