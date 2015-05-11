@@ -7,14 +7,15 @@
     <th colspan="7" style="text-align: center">Зарегистрированные заявки</th>
 {% endblock %}
 {% block lefttablecolumns %}
-
+    <tr>
         <th>ID заявки</th>
         <th>Заголовок</th>
         <th>Тип</th>
         <th>Приоритет</th>
         <th>Дата регистрации</th>
         <th>Компания</th>
-        <th>Заказчик</th>
+
+    </tr>
 
 {% endblock %}
 {% block lefttablecontent %}
@@ -27,7 +28,6 @@
             <td>{{ req.priority }}</td>
             <td>{{ req.createtime }}</td>
             <td>{{ req.company.name }}</td>
-            <td>{{ req.creator.username }}</td>
 
         </tr>
     {% empty %}
@@ -42,12 +42,14 @@
     <th colspan="6" style="text-align: center">Мои заявки</th>
 {% endblock %}
 {% block righttablecolumns %}
-    <th>ID заявки</th>
-    <th>Заголовок</th>
-    <th>Тип</th>
-    <th>Приоритет</th>
-    <th>Статус</th>
-    <th>Заказчик</th>
+    <tr>
+        <th>ID заявки</th>
+        <th>Заголовок</th>
+        <th>Тип</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+
+    </tr>
 
 {% endblock %}
 {% block righttablecontent %}
@@ -60,7 +62,7 @@
             <td>{{ myreq.reqtype }}</td>
             <td>{{ myreq.priority }}</td>
             <td>{{ myreq.status }}</td>
-            <td>{{ myreq.creator.username }}</td>
+
 
         </tr>
     {% empty %}

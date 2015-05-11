@@ -11,7 +11,7 @@
                 <div class="panel-body">
                     <table class="table table-responsive">
                         <tbody>
-                            <tr>
+                             <tr style="cursor: pointer" onclick="window.location.replace('/{{ company.id }}/DetailCompany')" >
                                 <td><b>Компания</b></td>
                                 <td>{{ company }}</td>
                             </tr>
@@ -37,7 +37,73 @@
                 </div>
             </div>
         </div>
+        <div class="row-fluid">
+            <div class="col-md-4 panel panel-info scrolling">
+                <div class="panel-heading">Замена </div>
+                <div class="panel-body">
+                   <!-- <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><b>Наименование</b></td>
+                                <td><b>Серийный номер</b></td>
+                                <td><b>Расположение</b></td>
 
+                            </tr>
+                            {% for equip in replaces %}
+                                {{ equip.id }}
+                                <tr style="cursor: pointer" onclick="window.location.replace('/{{ equip.id }}/equipment')" >
+                                    <td>{{ equip.name }}</td>
+                                    <td>{{ equip.serial }}</td>
+                                    <td>{{ equip.address }}</td>
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table> -->
+                <ol class="table-responsive">
+                    {% for replace in replaces %}
+                        <li style="cursor: pointer" onclick="window.location.replace('/{{ replace.id}}/get_equipment')" >{{ replace.replace }}</li>
+                    {% endfor %}
+
+                </ol>
+                </div>
+            </div>
+            <div class="col-md-8 panel panel-info scrolling">
+                <div class="panel-heading">Заявки по оборудованию</div>
+                <div class="panel-body">
+                    <table class=" table table-responsive ">
+                        <tbody>
+                            <tr>
+                                <td><b>Номер</b></td>
+                                <td><b>Заголовок</b></td>
+                                <td><b>Тип</b></td>
+                                <td><b>Приоритет</b></td>
+                                <td><b>Дата создания</b></td>
+                                <td><b>Статус</b></td>
+                                <td><b>Заказчик</b></td>
+                                <td><b>Исполнитель</b></td>
+                            </tr>
+                            {% for req in requests %}
+                                <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/request_journal')" >
+                                    <td>{{ req.id }}</td>
+                                    <td>{{ req.header }}</td>
+                                    <td>{{ req.reqtype }}</td>
+                                    <td>{{ req.priority }}</td>
+                                    <td>{{ req.createtime }}</td>
+                                    <td>{{ req.status }}</td>
+                                    <td>{{ req.creator }}</td>
+                                    <td>{{ req.engineer }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="8">Nothing to show </td>
+                                </tr>
+                            {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

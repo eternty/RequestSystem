@@ -10,7 +10,7 @@ from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm, Ne
 
 # Create your views here.
 from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User, Equipment, \
-    Comment, Groups_engineer, Contract
+    Comment, Groups_engineer, Contract, Replacement, Request_priority, Normative_time
 
 
 @login_required(login_url='/signin')
@@ -30,9 +30,10 @@ def index(request):
 
     elif request.user.usertype.name == 'Dispatcher':
 
-
-        requests = Request.objects.filter(status__id=2)
-        myrequests = Request.objects.filter(engineer=request.user)
+        active_requestss = Request.objects.exclude(status__name = u'Завершена')
+        requests = Request.objects.filter(status__name = u'зарегистрирована')
+        requests.order_by('-createtime','reqtype')
+        myrequests = active_requestss.filter(engineer = request.user)
         context = {
             'requests': requests,
             'myrequests': myrequests,
@@ -124,7 +125,7 @@ def equipspage(request):
 
 
 def active_requests(request):
-    act_requests = Request.objects.exclude(status__id=6)
+    act_requests = Request.objects.exclude(status__name=u'Завершена')
     usertype = request.user.usertype.name
     context = {
         'act_requests': act_requests,
@@ -262,12 +263,15 @@ def request_journal(request, pk):
     usertype = request.user.usertype.name
     commentform = NewCommentForm()
     comments = Comment.objects.filter(request__id = pk)
-    equips = Equipment.objects.filter()
+
 
     if request.method == 'POST':
+
         our_request = Request.objects.get(id = pk)
         changed_form = ShowRequestForm(request.POST)
         changed_form.save(commit=False)
+        company = our_request.company
+        equips = Equipment.objects.filter(contract__company = company )
         if changed_form.is_valid():
             our_request.engineer = changed_form.cleaned_data['engineer']
             our_request.group = changed_form.cleaned_data['group']
@@ -284,7 +288,8 @@ def request_journal(request, pk):
                 'usertype': usertype,
                 'comments': comments,
                 'commentform': commentform,
-                'reqobject': our_request
+                'reqobject': our_request,
+                'equips': equips
             }
 
         else:
@@ -293,6 +298,8 @@ def request_journal(request, pk):
     else:
         our_request = Request.objects.get(id = pk)
         reqform= ShowRequestForm(instance = our_request)
+        company = our_request.company
+        equips = Equipment.objects.filter(contract__company = company )
         context = {
                 'reqform': reqform,
                 'usertype': usertype,
@@ -379,10 +386,71 @@ def equipment(request, pk):
     usertype = request.user.usertype.name
     equip = Equipment.objects.get(id = pk)
     company = equip.contract.get_company()
+    exreplaces = Equipment.objects.filter(replace__in= equip.get_replacement())
+    replaces = Replacement.objects.filter(crashed = equip)
+    requests = Request.objects.filter(equipment = equip)
     context = {
         'equip':equip,
         'usertype': usertype,
-        'company': company
+        'company': company,
+        'replaces': replaces,
+        'requests': requests
+    }
+    return render(request,'equipment.html', context)
 
+
+def normative_time(request):
+    accidents = Normative_time.objects.filter(reqtype = u'Аварийная ситуация')
+    services = Normative_time.objects.filter(reqtype = u'Запрос на обслуживание')
+    changes = Normative_time.objects.filter(reqtype = u'Запрос на изменение')
+
+    critical_accidents = accidents.filter(priority = u'Критический')
+    high_accidents = accidents.filter(priotiry = u'Высокий')
+    middle_accidents = accidents.filter(priority = u'Средний')
+    low_accidents = accidents.filter(priority = u'Низкий')
+
+    critical_services = services.filter(priority = u'Критический')
+    high_services  = services.filter(priotiry = u'Высокий')
+    middle_services  = services.filter(priority = u'Средний')
+    low_services  = services.filter(priority = u'Низкий')
+
+    critical_changes = changes.filter(priority = u'Критический')
+    high_changes  = changes.filter(priotiry = u'Высокий')
+    middle_changes  = changes.filter(priority = u'Средний')
+    low_changes  = changes.filter(priority = u'Низкий')
+
+
+    context = {
+        'critical_accidents': critical_accidents,
+        'high_accidents': high_accidents,
+        'middle_accidents': middle_accidents,
+        'low_accidents': low_accidents,
+
+        'critical_services': critical_services,
+        'high_services': high_services,
+        'middle_services': middle_services,
+        'low_services': low_services,
+
+        'critical_changes': critical_changes,
+        'high_changes': high_changes,
+        'middle_changes': middle_changes,
+        'low_changes': low_changes
+    }
+    return render(request,'normative_time.html', context)
+
+
+def get_equipment(request, pk):
+    usertype = request.user.usertype.name
+    replacement = Replacement.objects.get(id = pk)
+    equip = Equipment.objects.get(id = replacement.replace.id)
+    company = equip.contract.get_company()
+    replaces = Replacement.objects.filter(crashed = equip)
+    requests = Request.objects.filter(equipment = equip)
+    context = {
+        'equip':equip,
+        'usertype': usertype,
+        'company': company,
+        'replaces': replaces,
+        'requests': requests
     }
     return render(request,'equipment.html', context)

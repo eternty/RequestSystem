@@ -6,85 +6,96 @@
     		<h3 class="text-center"> Журнал заявки </h3>
     	</div>
     	<br/><br/>
-    	<div class="col-md-6">
-	    	<div class="panel panel-info">
-	            <div class="panel-heading">
-	                Детали заявки
-	            </div>
-	            <div class="panel-body">
-                    <table class="table table-responsive">
-                        <thead></thead>
-                        <tbody>
-                            <tr>
-                                <td>№заявки</td>
-                                <td>{{ reqobject.id }}</td>
-                            </tr>
-                            <tr>
-                                <td>Компания</td>
-                                <td>{{ reqobject.company }}</td>
-                            </tr>
-                            <tr>
-                                <td>Заголовок</td>
-                                <td>{{ reqobject.header}}</td>
-                            </tr>
-                            <tr>
-                                <td class="text-info">Краткая информация</td>
-                                <td>{{ reqobject.info }}</td>
-                            </tr>
-                            <tr>
-                                <td>Дата создания</td>
-                                <td>{{ reqobject.createtime }}</td>
-                            </tr>
-                        </tbody>
+        <div class="row-fluid">
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Детали заявки
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-responsive">
+                            <thead></thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>№заявки:</b></td>
+                                    <td>{{ reqobject.id }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Компания:</b></td>
+                                    <td>{{ reqobject.company }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Заголовок:</b></td>
+                                    <td>{{ reqobject.header}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Краткая информация:</b></td>
+                                    <td>{{ reqobject.info }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Дата создания:</b></td>
+                                    <td>{{ reqobject.createtime }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Оборудование:</b></td>
+                                    <td>
+                                        <select class="form-control col-sm-3  selectors" name="equipment">
+                                            {% for equip in equips  %}
+                                                <option>{{ equip }}</option>
+                                            {% endfor%}
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
 
-                    </table>
-                    <form action="/{{ reqobject.id }}/request_journal" method="post">
-                        <table class=" table table-responsive">
-                            {{ reqform.as_table }}
                         </table>
-                        <input type="submit" value="Сохранить" />
-                    </form>
+                        <form action="/{{ reqobject.id }}/request_journal" method="post">
+                            <table class=" table table-responsive">
+                                {{ reqform.as_table }}
+                            </table>
+                            <input type="submit" value="Сохранить" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-info ">
+                    <div class="panel-heading">
+                        Рабочий журнал
+                    </div>
+                    <div class="panel-body ">
+                        <ul class="media-list scrolling">
+                            {% for comment in comments %}
+                                <li class="media">
+                                    <div class="media-body">
+                                        {{ comment.content }}
+                                        <br />
+                                        <small class="text-muted">{{ comment.author }} | {{ comment.date_time }}</small>
+                                        <hr />
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                            <form action="/{{ reqobject.id }}/add_comment" method="post">
+                                <div class = "row">
+                                    <div class="col-sm-8">
+                                        {% csrf_token %}
+                                        {{ commentform }}
+                                    </div>
+                                </div>
+                                <div class = "row">
+                                    <div class="col-sm-offset-8 col-sm-5">
+                                        <button type="submit" class="btn btn-default" id="regbutton">Отправить</button>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6">
-    		<div class="panel panel-info ">
-	            <div class="panel-heading">
-	                Рабочий журнал
-	            </div>
-                <div class="panel-body ">
-					<ul class="media-list scrolling">
-                        {% for comment in comments %}
-                            <li class="media">
-                                <div class="media-body">
-                                    {{ comment.content }}
-                                    <br />
-                                    <small class="text-muted">{{ comment.author }} | {{ comment.date_time }}</small>
-                                    <hr />
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-
-                        <form action="/{{ reqobject.id }}/add_comment" method="post">
-                            <div class = "row">
-                                <div class="col-sm-8">
-                                    {% csrf_token %}
-                                    {{ commentform }}
-                                </div>
-                            </div>
-                            <div class = "row">
-				    	        <div class="col-sm-offset-8 col-sm-5">
-				        	        <button type="submit" class="btn btn-default" id="regbutton">Отправить</button>
-						        </div>
-                            </div>
-                        </form>
-                </div>
-            </div>
-		</div>
     </div>
-
 {% endblock %}
 
 {% block scripts %}

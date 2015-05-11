@@ -1,0 +1,38 @@
+{% extends "base-nav.html" %}
+{% block header %}Нормативы времени{% endblock %}
+{% block otherbodycontent %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-4 panel panel-danger">
+                <div class="panel-heading">Аварийная ситуация</div>
+                <div class="panel-body">
+                    <table class="table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Приоритет</th>
+                                <th>Принятие</th>
+                                <th>Исследование и диагностика</th>
+                                <th>Решение и восстановление</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for accid in critical_accidents %}
+                            <tr>
+                                <td>Критический</td>
+                                <td>{{ accid. }}</td>
+
+                            </tr>
+                                {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

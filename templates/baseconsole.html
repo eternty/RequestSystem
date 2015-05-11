@@ -1,42 +1,40 @@
 {% extends "base-nav.html" %}
 {% block otherbodycontent %}
     <div class="container-fluid " >
-   	<div class="row">
-    	<div class="container col-md-6 "  >
-    			<table class="table table-bordered " >
-    				<thead>
-    					<tr>
-    						{% block lefttablename %}{% endblock %}
-    					</tr>
-    					<tr>
-    						{% block lefttablecolumns %}
+   	    <div class="row-fluid">
+    	    <div class="col-md-6 panel-info panel">
+
+                    <div class="panel-heading">{% block lefttablename %}{% endblock %}</div>
+                    <div class="panel-body">
+                        <table class="table table-bordered " >
+    				        <thead>
+                                {% block lefttablecolumns %}
+                                {% endblock %}
+                            </thead>
+                            <tbody>
+                            {% block lefttablecontent %}
                             {% endblock %}
-    					</tr>
-    				</thead>
-    				<tbody>
-                        {% block lefttablecontent %}
-                        {% endblock %}
-    				</tbody>
-    			</table>
+                            </tbody>
+                        </table>
+
+    		    </div>
+            </div>
+    		<div class="col-md-6 scrollable panel panel-info">
+
+                    <div class="panel-heading">{% block righttablename %}{% endblock %}</div>
+                    <div class="panel-body">
+                        <table class="table table-bordered ">
+                            <thead>
+                                {% block righttablecolumns %}{% endblock %}
+                            </thead>
+                            <tbody>
+                                {% block righttablecontent %}{% endblock %}
+                            </tbody>
+                        </table>
+                    </div>
+
     		</div>
-    		<div class="col-md-6">
-    			<table class="table table-bordered ">
-    				<thead>
-    					<tr>
-    						{% block righttablename %}{% endblock %}
-    					</tr>
-    					<tr>
-    						{% block righttablecolumns %}{% endblock %}
-    					</tr>
-    				</thead>
-    				<tbody>
-    					<tr>
-    						{% block righttablecontent %}{% endblock %}
-    					</tr>
-    				</tbody>
-    			</table>
-    		</div>
-    </div>
+        </div>
     </div>
 
  {% endblock %}

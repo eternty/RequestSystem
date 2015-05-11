@@ -23,7 +23,10 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>[0-9]+)/add_comment/?$', views.add_comment),
     url(r'^(?P<pk>[0-9]+)/user/?$',views.user),
     url(r'^engineers_by_group/?$', views.get_engineers_by_group),
-    url(r'^(?P<pk>[0-9]+)/equipment/?$', views.equipment)
+    url(r'^(?P<pk>[0-9]+)/equipment/?$', views.equipment),
+
+    url(r'^/normative_time/?$', views.normative_time),
+    url(r'^(?P<pk>[0-9]+)/get_equipment/?$', views.get_equipment)
 )
 
 urlpatterns += patterns('',

@@ -171,7 +171,11 @@ class Request_priority(models.Model):
 
 class Equipment(models.Model):
     def __unicode__(self):
-        return self.serial
+        full_recognition =  '%s %s' % (self.name, self.serial)
+        return full_recognition.strip()
+
+    def get_replacement(self):
+        return Replacement.objects.filter(crashed = self).values('replace')
 
     class Meta:
         verbose_name = u'Оборудование'
@@ -269,7 +273,7 @@ class Comment(models.Model):
         verbose_name = u'Коммент'
         verbose_name_plural = u'Комменты'
     author = models.ForeignKey(System_User)
-    content = models.CharField(max_length=250, verbose_name= "Комментарий")
+    content = models.CharField(max_length=250, verbose_name = "Комментарий")
     request = models.ForeignKey(Request)
     date_time = models.DateTimeField(default=timezone.now)
 
