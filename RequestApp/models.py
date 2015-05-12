@@ -228,6 +228,9 @@ class Request(models.Model):
 
     #def __unicode__(self):
     #   return self.id
+    def exist_solution(self):
+        return self.solution.__sizeof__()
+
     class Meta:
         verbose_name = u'Заявка'
         verbose_name_plural = u'Заявки'
@@ -252,7 +255,7 @@ class Request(models.Model):
     mark = models.CharField(max_length=2, choices=REQUEST_MARKS, default='OK', verbose_name="оценка выполнения SLA")
     equipment = models.ForeignKey(Equipment, blank=True, null=True, verbose_name="оборудование ")
     approvement = models.BooleanField(default=False, verbose_name= "подтверждение")
-    solution = models.CharField(max_length=250,null=True,blank=True, verbose_name="решение")
+    solution = models.CharField(max_length=250, null=True, blank=True, verbose_name="решение")
 
 
 class Execution_time(models.Model):

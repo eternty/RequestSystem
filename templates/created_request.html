@@ -9,9 +9,16 @@
         </div>
     </div>
     <div class= row>
-        <div class = "col-md-6 col-md-offset-2">
-           <a href='/{{ created_request.id }}/request_journal'><p>Открыть журнал заявки</p></a>
-        </div>
+        {% if usertype == 'Client' %}
+            <div class = "col-md-6 col-md-offset-2">
+               <a href='/{{ created_request.id }}/client_request_journal'><p>Открыть журнал заявки</p></a>
+            </div>
+        {% else %}
+             <div class = "col-md-6 col-md-offset-2">
+               <a href='/{{ created_request.id }}/request_journal'><p>Открыть журнал заявки</p></a>
+            </div>
+
+        {% endif %}
 
     </div>
 

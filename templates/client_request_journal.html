@@ -37,40 +37,50 @@
                                     <td>{{ reqobject.createtime }}</td>
                                 </tr>
                                 <tr>
-                                    <td><b>Оборудование:</b></td>
-                                    <td>
-                                        <select class="form-control col-sm-3  selectors" name="equipment">
-                                            {% for equip in equips  %}
-                                                <option>{{ equip }}</option>
-                                            {% endfor%}
-                                        </select>
-                                    </td>
+                                    <td><b>Заявитель:</b></td>
+                                    <td>{{ reqobject.creator }}</td>
                                 </tr>
+                                <tr>
+                                    <td><b>Тип заявки:</b></td>
+                                    <td>{{ reqobject.reqtype }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Приоритет:</b></td>
+                                    <td>{{ reqobject.priority }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Cтатус:</b></td>
+                                    <td>{{ reqobject.status }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Диспетчер:</b></td>
+                                    <td>{{ reqobject.dispatcher }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Группа:</b></td>
+                                    <td>{{ reqobject.group }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Исполнитель:</b></td>
+                                    <td>{{ reqobject.engineer }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Оборудование:</b></td>
+                                    <td>{{ reqobject.equipment }}</td>
+                                </tr>
+
+
                             </tbody>
 
                         </table>
-                        <form action="/{{ reqobject.id }}/request_journal" method="post">
-                            <table class=" table table-responsive">
-                                {{ reqform.as_table }}
-                            </table>
-
-                            <input type="submit" value="Сохранить" />
-                        </form>
-                        <!--<form action="/{{ reqobject.id }}/request_journal" method="post">
-                            <table class="table table-responsive">
-                                <tr>
-                                    <td><b>Оборудование:</b></td>
-                                    <td>
-                                        <select class="form-control col-sm-3  selectors" name="equipment1">
-                                            {% for equip in equips  %}
-                                                <option>{{ equip }}</option>
-                                            {% endfor%}
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                            <input type="submit" value="Choose" />
-                        </form> -->
+                        {% if need_approve %}
+                            <form action="/{{ reqobject.id }}/client_request_journal" method="post">
+                                <table class=" table table-responsive">
+                                    {{ reqform.as_table }}
+                                </table>
+                                <input type="submit" value="Сохранить" />
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -87,14 +97,14 @@
                                     <div class="media-body">
                                         {{ comment.content }}
                                         <br />
-                                        <small class="text-muted" style="cursor: pointer" onclick="window.location.replace('/{{ comment.author_id }}/user')">{{ comment.author }} | {{ comment.date_time }}</small>
+                                        <small class="text-muted">{{ comment.author }} | {{ comment.date_time }}</small>
                                         <hr />
                                     </div>
                                 </li>
                             {% endfor %}
                         </ul>
 
-                            <form action="/{{ reqobject.id }}/add_comment" method="post">
+                            <form action="/{{ reqobject.id }}/client_add_comment" method="post">
                                 <div class = "row">
                                     <div class="col-sm-8">
                                         {% csrf_token %}

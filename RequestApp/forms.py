@@ -24,6 +24,12 @@ class ShowRequestForm(ModelForm):
         model = Request
         exclude = ['id', 'company', 'header', 'info', 'approvement','createtime','mark', 'solution' ]
 
+class ShowClientRequestForm(ModelForm):
+    class Meta:
+        model = Request
+        fields = ['approvement']
+
+
 
 class NewCommentForm(ModelForm):
     class Meta:

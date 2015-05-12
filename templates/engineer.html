@@ -5,16 +5,19 @@
     <th colspan="6" >Мои заявки</th>
 {% endblock %}
 {% block lefttablecolumns %}
-    <th>ID заявки</th>
-    <th>Заголовок</th>
-    <th>Тип</th>
-    <th>Приоритет</th>
-    <th>Статус</th>
-    <th>Заказчик</th>
+
+        <th>ID заявки</th>
+        <th>Заголовок</th>
+        <th>Тип</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+        <th>Заказчик</th>
+
+
 {% endblock %}
 {% block lefttablecontent %}
     {% for myreq in myrequests %}
-        <tr>
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ myreq.id }}/request_journal')">
 
             <td>{{ myreq.id }}</td>
             <td>{{ myreq.header }}</td>
@@ -50,7 +53,7 @@
 {% block righttablecontent %}
 
     {% for req in requests %}
-        <tr>
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/request_journal')">
 
             <td>{{ req.id }}</td>
             <td>{{ req.header }}</td>

@@ -1,11 +1,11 @@
 # coding=utf-8
 import json
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes import generic
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm, NewCommentForm
+from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm, NewCommentForm, ShowClientRequestForm
 
 
 # Create your views here.
@@ -67,10 +67,23 @@ def signin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect("/")
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect("/")
+            else:
+                return HttpResponse("Disabled account!")
+        else:
+            return render(request, 'signIn.html')
+
     else:
         return render(request, 'signIn.html')
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponse("Вы успешно вышли из системы!")
 
 
 def hello(request):
@@ -264,14 +277,15 @@ def request_journal(request, pk):
     commentform = NewCommentForm()
     comments = Comment.objects.filter(request__id = pk)
 
-
     if request.method == 'POST':
 
         our_request = Request.objects.get(id = pk)
         changed_form = ShowRequestForm(request.POST)
+
         changed_form.save(commit=False)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company = company )
+        #our_request.equipment = changed_form.cleaned_data['equipment1']
         if changed_form.is_valid():
             our_request.engineer = changed_form.cleaned_data['engineer']
             our_request.group = changed_form.cleaned_data['group']
@@ -281,6 +295,7 @@ def request_journal(request, pk):
             our_request.priority = changed_form.cleaned_data['priority']
             our_request.reqtype = changed_form.cleaned_data['reqtype']
             our_request.status = changed_form.cleaned_data['status']
+            #our_request.equipment = changed_form.cleaned_data['equipment1']
             our_request.save()
             reqform = ShowRequestForm(instance=our_request)
             context = {
@@ -311,6 +326,64 @@ def request_journal(request, pk):
 
     return render(request, 'request_journal.html', context)
 
+
+def client_request_journal(request, pk):
+#to be ended
+
+    usertype = request.user.usertype.name
+    commentform = NewCommentForm()
+    comments = Comment.objects.filter(request__id = pk)
+
+    if request.method == 'POST':
+        our_request = Request.objects.get(id = pk)
+        changed_form = ShowClientRequestForm(request.POST)
+        changed_form.save(commit=False)
+        company = our_request.company
+        equips = Equipment.objects.filter(contract__company = company )
+        if our_request.solution.__len__()==0:
+            need_approve = False
+        else:
+            need_approve = True
+        if changed_form.is_valid():
+
+            our_request.approvement = changed_form.cleaned_data['approvement']
+            our_request.save()
+            reqform = ShowClientRequestForm(instance=our_request)
+            context = {
+                'need_approve': need_approve,
+                'reqform': reqform,
+                'usertype': usertype,
+                'comments': comments,
+                'commentform': commentform,
+                'reqobject': our_request,
+                'equips': equips
+            }
+
+        else:
+            return HttpResponse("Error!")
+
+    else:
+        our_request = Request.objects.get(id = pk)
+        reqform= ShowClientRequestForm(instance = our_request)
+        if our_request.solution.__len__() == 0:
+            need_approve = False
+        else:
+            need_approve = True
+        company = our_request.company
+        equips = Equipment.objects.filter(contract__company = company )
+        context = {
+                'need_approve': need_approve,
+                'reqform': reqform,
+                'usertype': usertype,
+                'comments': comments,
+                'commentform': commentform,
+                'reqobject': our_request,
+                'equips':equips
+        }
+
+    return render(request, 'client_request_journal.html', context)
+
+
 def add_comment(request, pk):
     usertype = request.user.usertype.name
     if request.method == 'POST':
@@ -338,6 +411,7 @@ def add_comment(request, pk):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
+
             return render(request, 'request_journal.html', context)
 
     # if a GET (or any other method) we'll create a blank form
@@ -352,6 +426,50 @@ def add_comment(request, pk):
 
 
     return render(request, 'request_journal.html', context)
+
+
+def client_add_comment(request, pk):
+    usertype = request.user.usertype.name
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        commentform = NewCommentForm(request.POST)
+        # check whether it's valid:
+        if commentform.is_valid():
+            creating_comment = commentform.save(commit=False)
+            creating_comment.author = request.user
+            creating_comment.request = Request.objects.get(id = pk)
+            creating_comment.save()
+            needed_request = Request.objects.get(id = pk)
+            reqform= ShowRequestForm(instance = needed_request)
+            comments = Comment.objects.filter(request__id = pk)
+            commentform2= NewCommentForm()
+            context = {
+
+                'usertype': usertype,
+                'reqform': reqform,
+                'comments': comments,
+                'commentform': commentform2,
+                'reqobject': needed_request
+
+            }
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+
+            return render(request, 'client_request_journal.html', context)
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        usertype = request.user.usertype.name
+        commentform = NewCommentForm()
+        context = {
+                'pk': pk,
+                'usertype': usertype,
+                'commentform': commentform
+            }
+
+
+    return render(request, 'client_request_journal.html', context)
 
 
 def get_engineers_by_group(request):

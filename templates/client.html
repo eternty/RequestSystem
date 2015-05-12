@@ -14,7 +14,7 @@
 {% endblock %}
 {% block lefttablecontent %}
     {% for myreq in myrequests %}
-        <tr style="cursor: pointer" onclick="window.location.replace('/{{ myreq.id }}/request_journal')">
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ myreq.id }}/client_request_journal')">
 
             <td>{{ myreq.id }}</td>
             <td>{{ myreq.header }}</td>
@@ -36,21 +36,22 @@
     <th colspan="8" style="text-align: center">Заявки компании</th>
 {% endblock %}
 {% block righttablecolumns %}
-
-    <th>ID заявки</th>
-    <th>Заголовок</th>
-    <th>Тип</th>
-    <th>Приоритет</th>
-    <th>Статус</th>
-    <th>Дата регистрации</th>
-    <th>Заказчик</th>
-    <th>Исполнитель</th>
+    <tr>
+        <th>ID заявки</th>
+        <th>Заголовок</th>
+        <th>Тип</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+        <th>Дата регистрации</th>
+        <th>Заказчик</th>
+        <th>Исполнитель</th>
+    </tr>
 
 {% endblock %}
 {% block righttablecontent %}
 
     {% for req in requests %}
-        <tr>
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/client_request_journal')">
 
             <td>{{ req.id }}</td>
             <td>{{ req.header }}</td>
