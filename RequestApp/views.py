@@ -83,7 +83,7 @@ def signin(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponse("Вы успешно вышли из системы!")
+    return render(request,'signin_page.html')
 
 
 def hello(request):

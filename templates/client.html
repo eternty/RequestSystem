@@ -5,12 +5,14 @@
     <th colspan="6" style="text-align: center">Мои заявки</th>
 {% endblock %}
 {% block lefttablecolumns %}
-    <th>ID заявки</th>
-    <th>Заголовок</th>
-    <th>Тип</th>
-    <th>Приоритет</th>
-    <th>Статус</th>
-    <th>Исполнитель</th>
+    <tr>
+        <th>ID заявки</th>
+        <th>Заголовок</th>
+        <th>Тип</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+        <th>Исполнитель</th>
+    </tr>
 {% endblock %}
 {% block lefttablecontent %}
     {% for myreq in myrequests %}

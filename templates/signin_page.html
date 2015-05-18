@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    {% load staticfiles %}
+
+    <meta charset="UTF-8">
+    <title>Главная</title>
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet", type="text/css">
+    <link href = "{% static 'css/mystyles.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    <div class="container-fluid" style="height: 700px; background-color:#d9edf7" >
+
+        <div class="container-fluid col-md-offset-2 col-md-8" style="background-color:#bce8f1; height: 700px " >
+            <div class="container-fluid " style="background-color: #269abc; border-radius: 5px; margin-top: 5px">
+                <h2 style="color: palegoldenrod">EterntyServiceDesk</h2>
+            </div>
+        <div class="container-fluid " style="background-color:transparent ; height: 320px; border-radius: 5px; margin-top: 5px">
+            <h3 class=text-center">Автоматизированная система службы поддержки <br>
+                ИВС клиента<br>
+            </h3>
+            <p>Можно много всего написатьМожно много всего написатьМожно много всего написать</p>
+            <p>Можно много всего написать</p>
+            <p>Можно много всего написать</p>
+            <p>Можно много всего написать</p>
+        </div>
+
+        <div class="col-md-5" style="background-color: #9acfea; height: 200px;border-width: 2px; border-radius: 5px;border-color: palevioletred; margin-top: 5px">
+            <h4>Наши контакты:</h4>
+            <address>
+                <strong>Головной офис ESD</strong><br>
+                Адрес: Москва, ул. Новая, 8 <br>
+                Email: contract@esd.ru<br>
+                Тел: (495) 888-8888
+
+            </address>
+
+        </div>
+        <div class="col-md-5 col-md-offset-2 " style="background-color: #9acfea;height: 200px;border-radius: 5px;border-color:#000000; border-width: 5px ;margin-top:5px">
+            <form class="form-signin" role="form" method="post">
+                <h4 class="form-signin-heading">Уже зарегистрированы?</h4>
+                <input type="text" class="form-control" placeholder="Username" name="username" required="" autofocus="">
+                <input type="password" class="form-control" placeholder="Password" name="password" required="">
+                <label class="checkbox pull-right">
+                    <input type="checkbox" value="remember-me" class="pull-right"> Запомнить
+                </label>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+            </form>
+        </div>
+        <div class="container-fluid">
+
+        </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+     <!--<div class="container" style="height: 700px; background-color: #f5f5f5" >
+        <div class="row1">
+            <div class="col-md-8 col-md-offset-2 bg-info" style="height: 5em" >
+
+            </div>
+        </div>
+        <div class="row " style="background-color: #c7ddef" >
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 " style="height: 5em" >
+                    <h1>EterntyServiceDesk</h1>
+                </div>
+            </div>
+            <div class="row1">
+                <div class="col-md-8 col-md-offset-2 " style="height: 15em" >
+                    <h3>Что зачем почему и как</h3>
+                    <p>Можно много всего написатьМожно много всего написатьМожно много всего написать</p>
+                    <p>Можно много всего написать</p>
+                    <p>Можно много всего написать</p>
+                    <p>Можно много всего написать</p>
+                </div>
+                <div class="col-md-3 "></div>
+                <div class="row1">
+
+                </div>
+            </div>
+        </div>
+-->
+
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+</body>
+</html>
