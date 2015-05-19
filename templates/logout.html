@@ -4,31 +4,49 @@
     {% load staticfiles %}
 
     <meta charset="UTF-8">
-    <title>Главная</title>
+    <title>Выход из системы</title>
 
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet", type="text/css">
     <link href = "{% static 'css/mystyles.css' %}" rel="stylesheet" type="text/css">
 
 </head>
 <body>
-    <div class="container-fluid" style="height: 700px; background-color:#d9edf7" >
+    <div class="container-fluid " style="height: 700px; background-color: #bce8f1" >
 
-        <div class="container-fluid col-md-offset-2 col-md-8" style="background-color:#bce8f1; height: 700px " >
-            <div class="container-fluid " style="background-color: #269abc; border-radius: 5px; margin-top: 5px">
-                <h2 style="color: palegoldenrod">EterntyServiceDesk</h2>
+        <div class="container-fluid col-md-offset-2 col-md-8" style="background-color:#fff; height: 700px " >
+            <div class="container-fluid text-center" style="background-color:lightblue; border-radius: 5px;border-color: #080808; margin-top: 5px">
+                <h2 style="color: darkslategray; font-family: cursive">EterntyServiceDesk</h2>
             </div>
+            <div class="row ">
+                <div class="container-fluid col-md-12 " style="background-color:transparent ; height: 150px; border-radius: 5px; margin-top: 5px">
+                    <h3 class="text-center" style="font-family:cursive; color:steelblue">Автоматизированная система службы поддержки <br>
+                        информационно-вычислительной сети клиента<br>
+                    </h3>
+                </div>
+                </div>
+            <div class="row">
+                <h4 class="text-center" style="font-family:cursive; color:dimgray">Вы успешно вышли из системы!</h4>
+                <a href="/signin" class="col-md-offset-4 " style="color: #222222"><p class="text-center">Вернуться на главную</p></a>
 
-            <div class="container-fluid " style="background-color:transparent ; height: 320px; border-radius: 5px; margin-top: 5px">
-                <h3 class=text-center">Автоматизированная система службы поддержки <br>
-                Информационно-вычислительной сети клиента<br>
-                </h3>
-                <p>Вы успешно вышли из системы!</p>
-                <a href="/signin">Вернуться на главную</a>
+            </div>
+            <div class="row-fluid col-md-12" style="height: 250px">
+
+            </div>
+            <div class="row-fluid">
+                <div class="col-md-12" style="background-color: lightblue; height: 100px;border-width: 2px; border-radius: 5px;border-color: palevioletred; margin-top: 5px">
+
+                </div>
             </div>
         </div>
+
+
+
     </div>
+
     <script src="{% static 'js/jquery.js' %}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
 </body>
 </html>

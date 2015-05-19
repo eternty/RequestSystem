@@ -5,7 +5,7 @@
     <th colspan="7" style="text-align: center">Зарегистрированные заявки</th>
 {% endblock %}
 {% block lefttablecolumns %}
-
+<tr>
     <th>ID заявки</th>
     <th>Заголовок</th>
     <th>Тип</th>
@@ -13,7 +13,7 @@
     <th>Дата регистрации</th>
     <th>Компания</th>
     <th>Заказчик</th>
-
+</tr>
 {% endblock %}
 {% block lefttablecontent %}
     {% for newreq in newrequests %}
