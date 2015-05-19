@@ -15,8 +15,6 @@ urlpatterns = patterns('',
     url(r'^active_requests?$', views.active_requests),
 
     url(r'^(?P<pk>[0-9]+)/DetailCompany$', views.DetailCompany),
-    url(r'^get_name/?$', views.get_name),
-    url(r'^results/?$', views.results),
     url(r'^new_request/?$', views.new_request),
     url(r'^created_request/?$', views.created_request),
     url(r'^(?P<pk>[0-9]+)/request_journal/?$', views.request_journal),

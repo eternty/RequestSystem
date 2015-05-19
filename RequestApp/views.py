@@ -16,11 +16,12 @@ from RequestApp.models import User_type, Company, Request, Request_status, Speci
 @login_required(login_url='/signin')
 def index(request):
     usertype = request.user.usertype.name
-    if request.user.usertype.name == 'Engineer':
-
-        requests = Request.objects.filter(group__in=request.user.get_specialization())
+    if request.user.usertype.name == u'Инженер':
+        active_requests = Request.objects.exclude(status__name = u'Завершена')
+        requests = active_requests.filter(group__in=request.user.get_specialization())
         myrequests = Request.objects.filter(engineer=request.user)
-
+        requests.order_by('-createtime','reqtype')
+        myrequests.order_by('-createtime','reqtype')
         context = {
             'requests': requests,
             'myrequests': myrequests,
@@ -28,10 +29,10 @@ def index(request):
         }
         return render(request, 'engineer.html', context)
 
-    elif request.user.usertype.name == 'Dispatcher':
+    elif request.user.usertype.name == u'Диспетчер':
 
         active_requestss = Request.objects.exclude(status__name = u'Завершена')
-        requests = Request.objects.filter(status__name = u'зарегистрирована')
+        requests = Request.objects.filter(status__name = u'Зарегистрирована')
         requests.order_by('-createtime','reqtype')
         myrequests = active_requestss.filter(engineer = request.user)
         context = {
@@ -41,7 +42,7 @@ def index(request):
         }
         return render(request, 'disp.html', context)
 
-    elif request.user.usertype.name == 'Client':
+    elif request.user.usertype.name == u'Клиент':
 
         requests = Request.objects.filter(company=request.user.company)
         myrequests = Request.objects.filter(creator=request.user)
@@ -52,8 +53,8 @@ def index(request):
         }
         return render(request, 'client.html', context)
     else:
-        requests = Request.objects.exclude(status__id=7)
-        newrequests = Request.objects.filter(status__id=2)
+        requests = Request.objects.exclude(status__name = u'Завершена')
+        newrequests = Request.objects.filter(status__name = u'Зарегистрирована')
         context = {
             'requests': requests,
             'newrequests': newrequests,
@@ -172,54 +173,9 @@ def DetailCompany(request, pk):
     return render(request, 'сompany.html', context)
 
 
-def test(request):
-    usertype = request.user.usertype.name
-    context = {
-        'usertype': usertype
-    }
-    return render(request, 'your-name.html', context)
-
-
-def get_name(request):
-    usertype = request.user.usertype.name
-
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            name = form.cleaned_data['your_name']
-            context = {
-                'name': name,
-                'usertype': usertype,
-
-            }
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return render(request, 'results.html', context)
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-
-    return render(request, 'your-name.html', {'form': form, 'usertype': usertype})
-
-
-def results(request):
-    usertype = request.user.usertype.name
-
-    context = {
-
-        'usertype': usertype
-    }
-    return render(request, 'results.html', context)
-
-
 def new_request(request):
     usertype = request.user.usertype.name
-    if usertype !='Client':
+    if usertype != u'Клиент':
         if request.method == 'POST':
             form = RequestForm(request.POST)
             if form.is_valid():
@@ -346,17 +302,17 @@ def client_request_journal(request, pk):
         changed_form.save(commit=False)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company)
-        if our_request.solution.__len__() == 0:
-            need_approve = False
-        else:
-            need_approve = True
+        #if our_request.solution.__len__() == 0:
+        #    need_approve = False
+        #else:
+        #    need_approve = True
         if changed_form.is_valid():
 
             our_request.approvement = changed_form.cleaned_data['approvement']
             our_request.save()
             reqform = ShowClientRequestForm(instance=our_request)
             context = {
-                'need_approve': need_approve,
+                #'need_approve': need_approve,
                 'reqform': reqform,
                 'usertype': usertype,
                 'comments': comments,
@@ -371,14 +327,14 @@ def client_request_journal(request, pk):
     else:
         our_request = Request.objects.get(id = pk)
         reqform= ShowClientRequestForm(instance = our_request)
-        if our_request.solution.__len__() == 0:
-            need_approve = False
-        else:
-            need_approve = True
+        #if our_request.solution.__len__() == 0:
+        #    need_approve = False
+        #else:
+        #    need_approve = True
         company = our_request.company
         equips = Equipment.objects.filter(contract__company = company )
         context = {
-                'need_approve': need_approve,
+              #  'need_approve': need_approve,
                 'reqform': reqform,
                 'usertype': usertype,
                 'comments': comments,

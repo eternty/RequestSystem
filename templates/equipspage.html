@@ -3,7 +3,7 @@
 {% block otherbodycontent %}
      <div class = row-fluid>
 
-            {% if usertype != 'Client' %}
+            {% if usertype != 'Клиент' %}
                 <div class = col-md-3>
                     <h1>Оборудование</h1>
                 </div>
@@ -64,7 +64,7 @@
                                      </tr>
 
                                         {% for equip in client_equips %}
-                                            <tr>
+                                            <tr style="cursor: pointer" onclick="window.location.replace('/{{ equip.id }}/equipment')" >
                                                 <td>{{ equip.name }}</td>
                                                 <td>{{ equip.serial }}</td>
                                                 <td>{{ equip.address }}</td>

@@ -77,6 +77,10 @@ class System_User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
+    def get_full_name(self):
+        full_name = '%s %s %s' % (self.first_name, self.patronymic, self.last_name)
+        return full_name.strip()
+
 
     class Meta:
         verbose_name = u'Пользователь'
@@ -108,9 +112,7 @@ class System_User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.first_name
 
-    def get_full_name(self):
-        full_name = '%s %s %s' % (self.first_name, self.patronymic, self.last_name)
-        return full_name.strip()
+
     #def get_specialization(self):
       #  specials = Specialization.objects.filter(engineer = self)
       #   return specials
@@ -171,7 +173,7 @@ class Request_priority(models.Model):
 
 class Equipment(models.Model):
     def __unicode__(self):
-        full_recognition =  '%s %s' % (self.name, self.serial)
+        full_recognition = '%s %s' % (self.name, self.serial)
         return full_recognition.strip()
 
     def get_replacement(self):
@@ -186,7 +188,7 @@ class Equipment(models.Model):
     address = models.CharField(max_length=100)
     contract = models.ForeignKey(Contract)
     description = models.CharField(max_length=100)
-
+    company = models.ForeignKey(Company)
 
 class Normative_time(models.Model):
 
@@ -235,12 +237,12 @@ class Request(models.Model):
         verbose_name = u'Заявка'
         verbose_name_plural = u'Заявки'
 
-    company = models.ForeignKey(Company,  verbose_name="компания")
+    company = models.ForeignKey(Company,   verbose_name="компания")
     creator = models.ForeignKey(System_User, related_name='creator_of', verbose_name="заявитель" )
     reqtype = models.ForeignKey(Request_type, verbose_name="тип заявки")
     priority = models.ForeignKey(Request_priority, verbose_name="приоритет")
-    header = models.CharField(max_length=30, verbose_name="заголовок")
-    info = models.TextField(max_length=200, verbose_name="краткая информация")
+    header = models.CharField(max_length=50, verbose_name="заголовок")
+    info = models.TextField(max_length=500,  verbose_name="краткая информация")
     status = models.ForeignKey(Request_status, verbose_name="статус")
     dispatcher = models.ForeignKey(System_User, blank=True, null=True, related_name='dispatcher_of', verbose_name="диспетчер")
     group = models.ForeignKey(Groups_engineer, blank=True, null=True, verbose_name= "группа")
@@ -253,7 +255,7 @@ class Request(models.Model):
         ('OK', 'All in time')
     )
     mark = models.CharField(max_length=2, choices=REQUEST_MARKS, default='OK', verbose_name="оценка выполнения SLA")
-    equipment = models.ForeignKey(Equipment, blank=True, null=True, verbose_name="оборудование ")
+    equipment = models.ForeignKey(Equipment, blank=True, null=True, verbose_name="оборудование")
     approvement = models.BooleanField(default=False, verbose_name= "подтверждение")
     solution = models.CharField(max_length=250, null=True, blank=True, verbose_name="решение")
 

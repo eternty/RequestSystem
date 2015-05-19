@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -14,13 +15,13 @@
     <nav class="navbar navbar-default"  role="navigation">
   			<ul class="nav navbar-nav">
 
-	        	{% if usertype == 'Manager' %}
+	        	{% if usertype == 'Менеджер' %}
 
                     <li class="active"><a href="/">Консоль менеджера</a></li>
                     <li><a href="/new_request">Новая заявка</a></li>
                     <li><a href="active_requests">Заявки в работе</a></li>
                     <li><a href="#">Загрузка инженеров</a></li>
-                    <li><a href="/get_name">your-name</a></li>
+
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         Списки <span class="caret"></span>
@@ -32,13 +33,24 @@
                         </ul>
                     </li>
 
+                {% elif usertype == 'Инженер' %}
 
-                {% elif usertype == 'Dispatcher'  %}
+                    <li class="active"><a href="/">Консоль исполнителя</a></li>
+                    <li><a href="/companiespage">Компании</a></li>
+                    <li><a href="/userspage">Пользователи</a></li>
+                    <li><a href="/equipspage">Оборудование</a></li>
 
+                {% elif usertype == 'Клиент' %}
+                    <li class="active"><a href="/">Консоль клиента</a></li>
+                    <li><a href="/new_request">Новая заявка</a></li>
+                    <li><a href="/companiespage">О компании</a></li>
+                    <li><a href="/userspage">Пользователи</a></li>
+                    <li><a href="/equipspage">Оборудование</a></li>
+
+                {% else %}
                     <li class="active"><a href="/">Консоль диспетчера</a></li>
                     <li><a href="/new_request">Новая заявка</a></li>
                     <li><a href="/active_requests">Заявки в работе</a></li>
-
 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -52,22 +64,6 @@
 
                         </ul>
                     </li>
-
-
-
-                {% elif usertype == 'Engineer' %}
-
-                    <li class="active"><a href="/">Консоль исполнителя</a></li>
-                    <li><a href="/companiespage">Компании</a></li>
-                    <li><a href="/userspage">Пользователи</a></li>
-                    <li><a href="/equipspage">Оборудование</a></li>
-
-                {% else %}
-                    <li class="active"><a href="/">Консоль клиента</a></li>
-                    <li><a href="/new_request">Новая заявка</a></li>
-                    <li><a href="/companiespage">О компании</a></li>
-                    <li><a href="/userspage">Пользователи</a></li>
-                    <li><a href="/equipspage">Оборудование</a></li>
 
                 {% endif %}
 
