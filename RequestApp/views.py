@@ -10,7 +10,7 @@ from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm, Ne
 
 # Create your views here.
 from RequestApp.models import User_type, Company, Request, Request_status, Specialization, System_User, Equipment, \
-    Comment, Groups_engineer, Contract, Replacement, Request_priority, Normative_time
+    Comment, Groups_engineer, Contract, Replacement, Request_priority, Normative_time, Execution_time
 
 
 @login_required(login_url='/signin')
@@ -75,15 +75,15 @@ def signin(request):
             else:
                 return HttpResponse("Disabled account!")
         else:
-            return render(request, 'signIn.html')
+            return render(request, 'signin_page.html')
 
     else:
-        return render(request, 'signIn.html')
+        return render(request, 'signin_page.html')
 
 
 def logout_view(request):
     logout(request)
-    return render(request,'signin_page.html')
+    return render(request,'logout.html')
 
 
 def hello(request):
@@ -275,16 +275,16 @@ def request_journal(request, pk):
 
     usertype = request.user.usertype.name
     commentform = NewCommentForm()
-    comments = Comment.objects.filter(request__id = pk)
+    comments = Comment.objects.filter(request__id=pk)
 
     if request.method == 'POST':
 
-        our_request = Request.objects.get(id = pk)
+        our_request = Request.objects.get(id=pk)
         changed_form = ShowRequestForm(request.POST)
 
         changed_form.save(commit=False)
         company = our_request.company
-        equips = Equipment.objects.filter(contract__company = company )
+        equips = Equipment.objects.filter(contract__company=company )
         #our_request.equipment = changed_form.cleaned_data['equipment1']
         if changed_form.is_valid():
             our_request.engineer = changed_form.cleaned_data['engineer']
@@ -294,7 +294,13 @@ def request_journal(request, pk):
             our_request.equipment = changed_form.cleaned_data['equipment']
             our_request.priority = changed_form.cleaned_data['priority']
             our_request.reqtype = changed_form.cleaned_data['reqtype']
-            our_request.status = changed_form.cleaned_data['status']
+
+            new_stat = Request_status.objects.get(name=changed_form.cleaned_data['status'])
+            if our_request.status.id != new_stat.id:
+                exec_time = Execution_time.objects.create(request=our_request, rstatus=changed_form.cleaned_data['status'] )
+
+                exec_time.save()
+                our_request.status = changed_form.cleaned_data['status']
             #our_request.equipment = changed_form.cleaned_data['equipment1']
             our_request.save()
             reqform = ShowRequestForm(instance=our_request)
@@ -311,10 +317,10 @@ def request_journal(request, pk):
             return HttpResponse("Error!")
 
     else:
-        our_request = Request.objects.get(id = pk)
-        reqform= ShowRequestForm(instance = our_request)
+        our_request = Request.objects.get(id=pk)
+        reqform= ShowRequestForm(instance=our_request)
         company = our_request.company
-        equips = Equipment.objects.filter(contract__company = company )
+        equips = Equipment.objects.filter(contract__company=company )
         context = {
                 'reqform': reqform,
                 'usertype': usertype,
@@ -332,15 +338,15 @@ def client_request_journal(request, pk):
 
     usertype = request.user.usertype.name
     commentform = NewCommentForm()
-    comments = Comment.objects.filter(request__id = pk)
+    comments = Comment.objects.filter(request__id=pk)
 
     if request.method == 'POST':
         our_request = Request.objects.get(id = pk)
         changed_form = ShowClientRequestForm(request.POST)
         changed_form.save(commit=False)
         company = our_request.company
-        equips = Equipment.objects.filter(contract__company = company )
-        if our_request.solution.__len__()==0:
+        equips = Equipment.objects.filter(contract__company=company)
+        if our_request.solution.__len__() == 0:
             need_approve = False
         else:
             need_approve = True

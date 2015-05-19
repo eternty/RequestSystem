@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    {% load staticfiles %}
+
+    <meta charset="UTF-8">
+    <title>Главная</title>
+
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet", type="text/css">
+    <link href = "{% static 'css/mystyles.css' %}" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    <div class="container-fluid" style="height: 700px; background-color:#d9edf7" >
+
+        <div class="container-fluid col-md-offset-2 col-md-8" style="background-color:#bce8f1; height: 700px " >
+            <div class="container-fluid " style="background-color: #269abc; border-radius: 5px; margin-top: 5px">
+                <h2 style="color: palegoldenrod">EterntyServiceDesk</h2>
+            </div>
+        <div class="container-fluid " style="background-color:transparent ; height: 320px; border-radius: 5px; margin-top: 5px">
+            <h3 class=text-center">Автоматизированная система службы поддержки <br>
+                ИВС клиента<br>
+            </h3>
+            <p>Вы успешно вышли из системы!</p>
+            <a href="/signin">Вернуться на главную</a>
+
+        </div>
+
+
+
+
+    </div>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+</body>
+</html>

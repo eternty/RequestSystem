@@ -268,7 +268,7 @@ class Execution_time(models.Model):
     request = models.ForeignKey(Request)
     rstatus = models.ForeignKey(Request_status)
     start_exectime = models.TimeField(default=timezone.now)
-    finish_exectime = models.TimeField(auto_now=False, auto_now_add=False)
+    finish_exectime = models.TimeField(auto_now=False, auto_now_add=False, null=True, blank=True)
 
 
 class Comment(models.Model):
