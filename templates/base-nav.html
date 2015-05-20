@@ -19,8 +19,8 @@
 
                     <li class="active"><a href="/">Консоль менеджера</a></li>
                     <li><a href="/new_request">Новая заявка</a></li>
-                    <li><a href="active_requests">Заявки в работе</a></li>
-                    <li><a href="#">Загрузка инженеров</a></li>
+                    <li><a href="/active_requests">Заявки в работе</a></li>
+                    <!--<li><a href="#">Загрузка инженеров</a></li> -->
 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -31,6 +31,7 @@
                             <li><a href="/userspage">Пользователи</a></li>
                             <li><a href="/equipspage">Оборудование</a></li>
                         </ul>
+                    <li><a href="/req_archive">Архив заявок</a></li>
                     </li>
 
                 {% elif usertype == 'Инженер' %}
@@ -39,6 +40,7 @@
                     <li><a href="/companiespage">Компании</a></li>
                     <li><a href="/userspage">Пользователи</a></li>
                     <li><a href="/equipspage">Оборудование</a></li>
+                    <li><a href="/req_archive">Архив заявок</a></li>
 
                 {% elif usertype == 'Клиент' %}
                     <li class="active"><a href="/">Консоль клиента</a></li>
@@ -46,11 +48,13 @@
                     <li><a href="/companiespage">О компании</a></li>
                     <li><a href="/userspage">Пользователи</a></li>
                     <li><a href="/equipspage">Оборудование</a></li>
+                    <li><a href="/req_archive">Архив заявок</a></li>
 
                 {% else %}
                     <li class="active"><a href="/">Консоль диспетчера</a></li>
                     <li><a href="/new_request">Новая заявка</a></li>
                     <li><a href="/active_requests">Заявки в работе</a></li>
+                    <li><a href="/req_archive">Архив заявок</a></li>
 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">

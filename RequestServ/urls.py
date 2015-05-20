@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>[0-9]+)/request_journal/?$', views.request_journal),
     url(r'^(?P<pk>[0-9]+)/add_comment/?$', views.add_comment),
     url(r'^(?P<pk>[0-9]+)/client_add_comment/?$', views.client_add_comment),
+    url(r'^(?P<pk>[0-9]+)/engineer_add_comment/?$', views.engineer_add_comment),
     url(r'^(?P<pk>[0-9]+)/user/?$',views.user),
     url(r'^engineers_by_group/?$', views.get_engineers_by_group),
     url(r'^(?P<pk>[0-9]+)/equipment/?$', views.equipment),
@@ -27,7 +28,9 @@ urlpatterns = patterns('',
     url(r'^/normative_time/?$', views.normative_time),
     url(r'^(?P<pk>[0-9]+)/get_equipment/?$', views.get_equipment),
     url(r'^logout/?$', views.logout_view),
-    url(r'^(?P<pk>[0-9]+)/client_request_journal/?$', views.client_request_journal)
+    url(r'^(?P<pk>[0-9]+)/client_request_journal/?$', views.client_request_journal),
+    url(r'^(?P<pk>[0-9]+)/engineer_request_journal/?$', views.engineer_request_journal),
+    url(r'^req_archive/?$', views.req_archive)
 )
 
 urlpatterns += patterns('',

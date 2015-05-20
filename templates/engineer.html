@@ -17,7 +17,7 @@
 {% endblock %}
 {% block lefttablecontent %}
     {% for myreq in myrequests %}
-        <tr style="cursor: pointer" onclick="window.location.replace('/{{ myreq.id }}/request_journal')">
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ myreq.id }}/engineer_request_journal')">
 
             <td>{{ myreq.id }}</td>
             <td>{{ myreq.header }}</td>
@@ -53,7 +53,7 @@
 {% block righttablecontent %}
 
     {% for req in requests %}
-        <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/request_journal')">
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/engineer_request_journal')">
 
             <td>{{ req.id }}</td>
             <td>{{ req.header }}</td>
