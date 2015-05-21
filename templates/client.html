@@ -6,7 +6,7 @@
 {% endblock %}
 {% block lefttablecolumns %}
     <tr>
-        <th>ID заявки</th>
+
         <th>Заголовок</th>
         <th>Тип</th>
         <th>Приоритет</th>
@@ -18,7 +18,7 @@
     {% for myreq in myrequests %}
         <tr style="cursor: pointer" onclick="window.location.replace('/{{ myreq.id }}/client_request_journal')">
 
-            <td>{{ myreq.id }}</td>
+
             <td>{{ myreq.header }}</td>
             <td>{{ myreq.reqtype }}</td>
             <td>{{ myreq.priority }}</td>
@@ -39,7 +39,7 @@
 {% endblock %}
 {% block righttablecolumns %}
     <tr>
-        <th>ID заявки</th>
+
         <th>Заголовок</th>
         <th>Тип</th>
         <th>Приоритет</th>
@@ -55,7 +55,7 @@
     {% for req in requests %}
         <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/client_request_journal')">
 
-            <td>{{ req.id }}</td>
+
             <td>{{ req.header }}</td>
             <td>{{ req.reqtype }}</td>
             <td>{{ req.priority }}</td>

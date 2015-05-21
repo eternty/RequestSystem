@@ -5,21 +5,20 @@
     <th colspan="7" style="text-align: center">Зарегистрированные заявки</th>
 {% endblock %}
 {% block lefttablecolumns %}
-<tr>
-    <th>ID заявки</th>
-    <th>Заголовок</th>
-    <th>Тип</th>
-    <th>Приоритет</th>
-    <th>Дата регистрации</th>
-    <th>Компания</th>
-    <th>Заказчик</th>
-</tr>
+    <tr>
+        <!--<th>ID заявки</th>-->
+        <th>Заголовок</th>
+        <th>Тип</th>
+        <th>Приоритет</th>
+        <th>Дата регистрации</th>
+        <th>Компания</th>
+        <th>Заказчик</th>
+    </tr>
 {% endblock %}
 {% block lefttablecontent %}
     {% for newreq in newrequests %}
-        <tr>
-
-            <td>{{ newreq.id }}</td>
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ newreq.id }}/request_journal')" >
+            <!-- <td>{{ newreq.id }}</td>-->
             <td>{{ newreq.header }}</td>
             <td>{{ newreq.reqtype }}</td>
             <td>{{ newreq.priority }}</td>
@@ -40,20 +39,22 @@
     <th colspan="6" style="text-align: center">Все заявки</th>
 {% endblock %}
 {% block righttablecolumns %}
-    <th>ID заявки</th>
-    <th>Заголовок</th>
-    <th>Тип</th>
-    <th>Приоритет</th>
-    <th>Статус</th>
-    <th>Заказчик</th>
+    <tr>
+        <!--<th>ID заявки</th> -->
+        <th>Заголовок</th>
+        <th>Тип</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+        <th>Заказчик</th>
+    </tr>
 
 {% endblock %}
 {% block righttablecontent %}
 
     {% for req in requests %}
-        <tr>
+        <tr style="cursor: pointer" onclick="window.location.replace('/{{ req.id }}/request_journal')" >
 
-            <td>{{ req.id }}</td>
+            <!--<td>{{ req.id }}</td> -->
             <td>{{ req.header }}</td>
             <td>{{ req.reqtype }}</td>
             <td>{{ req.priority }}</td>

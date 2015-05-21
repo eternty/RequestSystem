@@ -299,12 +299,11 @@ def engineer_request_journal(request, pk):
 
         our_request = Request.objects.get(id=pk)
         changed_form = ShowEngRequestForm(request.POST)
-
-        changed_form.save(commit=False)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company )
         #our_request.equipment = changed_form.cleaned_data['equipment1']
         if changed_form.is_valid():
+            changed_form.save(commit=False)
             our_request.engineer = changed_form.cleaned_data['engineer']
             our_request.group = changed_form.cleaned_data['group']
             our_request.solution = changed_form.cleaned_data['solution']
