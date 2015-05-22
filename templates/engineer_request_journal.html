@@ -54,24 +54,32 @@
                                     <td>{{ reqobject.dispatcher }}</td>
                                 </tr>
 
+
                             </tbody>
 
                         </table>
-                    <form action="/{{ reqobject.id }}/request_journal" method="post">
+                        {% if reqobject.status.id > 6 %}
+                            {% if reqobject.approvement != None%}
+                                <table class="table table-responsive">
+                                    <tbody>
+                                        <tr>
+                                            <td><b>Подтверждение заказчика:</b></td>
+                                            <td>{{ reqobject.approvement}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table >
+                            {% endif %}
+                        {% endif %}
+                    <form action="/{{ reqobject.id }}/engineer_request_journal" method="post">
                             <table class=" table table-responsive">
                                 {{ reqform.as_table }}
                             </table>
 
+
                             <input type="submit" value="Сохранить" />
-                        </form>
-                        <!--{% if need_approve %}
-                            <form action="/{{ reqobject.id }}/client_request_journal" method="post">
-                                <table class=" table table-responsive">
-                                    {{ reqform.as_table }}
-                                </table>
-                                <input type="submit" value="Сохранить" />
-                            </form>
-                        {% endif %} -->
+                    </form>
+
+
                     </div>
                 </div>
             </div>

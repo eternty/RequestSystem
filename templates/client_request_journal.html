@@ -52,22 +52,48 @@
                                     <td><b>Cтатус:</b></td>
                                     <td>{{ reqobject.status }}</td>
                                 </tr>
+
                                 <tr>
                                     <td><b>Диспетчер:</b></td>
-                                    <td>{{ reqobject.dispatcher }}</td>
+                                    {% if reqobject.dispatcher == None %}
+                                        <td>Не назначен</td>
+                                    {% else%}
+                                        <td>{{ reqobject.dispatcher }}</td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td><b>Группа:</b></td>
+                                    {% if reqobject.group == None %}
+                                        <td>Не назначена</td>
+                                    {% else%}
                                     <td>{{ reqobject.group }}</td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td><b>Исполнитель:</b></td>
+                                    {% if reqobject.group == None %}
+                                        <td>Не назначен</td>
+                                    {% else%}
                                     <td>{{ reqobject.engineer }}</td>
+                                    {% endif %}
                                 </tr>
+
                                 <tr>
                                     <td><b>Оборудование:</b></td>
-                                    <td>{{ reqobject.equipment }}</td>
+                                    {% if reqobject.equipment == None %}
+                                        <td>Не выбрано</td>
+                                    {% else %}
+                                        <td>{{ reqobject.equipment }}</td>
+                                    {% endif %}
                                 </tr>
+                                {% if reqobject.status.id > 6 %}
+                                    {% if reqobject.solution != None %}
+                                        <tr>
+                                            <td><b>Решение:</b></td>
+                                            <td>{{ reqobject.solution }}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endif %}
 
 
                             </tbody>

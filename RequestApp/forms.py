@@ -4,9 +4,6 @@ from django.forms import ModelForm
 from RequestApp.models import Request, Equipment, Comment
 
 
-class NameForm(forms.Form):
-    your_name = forms.CharField(label='Your name', max_length=100)
-
 class RequestForm(ModelForm):
     class Meta:
         model = Request
@@ -23,7 +20,13 @@ class ClientRequestForm(ModelForm):
 class ShowRequestForm(ModelForm):
     class Meta:
         model = Request
-        exclude = ['id', 'company', 'header', 'info', 'approvement','createtime','mark', 'solution' ]
+        exclude = ['id', 'company', 'header', 'info', 'createtime','mark' ,'approvement', 'solution']
+
+
+class ShowSolRequestForm(ModelForm):
+    class Meta:
+        model = Request
+        exclude = ['id', 'company', 'header', 'info','createtime','mark' ]
 
 
 class ShowClientRequestForm(ModelForm):
@@ -35,8 +38,12 @@ class ShowClientRequestForm(ModelForm):
 class ShowEngRequestForm(ModelForm):
     class Meta:
         model = Request
-        fields = ['status', 'equipment', 'solution', 'group',  'engineer']
+        fields = ['status', 'equipment', 'group',  'engineer']
 
+class ShowEngSolRequestForm(ModelForm):
+    class Meta:
+        model = Request
+        fields = ['status', 'equipment',  'group',  'engineer', 'solution']
 
 class NewCommentForm(ModelForm):
     class Meta:

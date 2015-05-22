@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes import generic
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import NameForm, RequestForm, ClientRequestForm, ShowRequestForm, NewCommentForm, ShowClientRequestForm, ShowEngRequestForm
+from .forms import  RequestForm, ClientRequestForm, ShowRequestForm, NewCommentForm, ShowClientRequestForm, ShowEngRequestForm, \
+    ShowEngSolRequestForm, ShowSolRequestForm
 
 
 # Create your views here.
@@ -226,6 +227,7 @@ def new_request(request):
 def created_request(request):
     return render(request, 'created_request.html', )
 
+
 def request_journal(request, pk):
 #to be ended
 
@@ -236,12 +238,16 @@ def request_journal(request, pk):
     if request.method == 'POST':
 
         our_request = Request.objects.get(id=pk)
-        changed_form = ShowRequestForm(request.POST)
-
-        changed_form.save(commit=False)
+        if our_request.status.id >6:
+            sol = True
+            changed_form = ShowSolRequestForm(request.POST)
+        else:
+            sol = False
+            changed_form = ShowRequestForm(request.POST)
+        #changed_form.save(commit=False)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company )
-        #our_request.equipment = changed_form.cleaned_data['equipment1']
+
         if changed_form.is_valid():
             our_request.engineer = changed_form.cleaned_data['engineer']
             our_request.group = changed_form.cleaned_data['group']
@@ -250,16 +256,19 @@ def request_journal(request, pk):
             our_request.equipment = changed_form.cleaned_data['equipment']
             our_request.priority = changed_form.cleaned_data['priority']
             our_request.reqtype = changed_form.cleaned_data['reqtype']
-
+            if sol:
+                our_request.solution = changed_form.cleaned_data['solution']
             new_stat = Request_status.objects.get(name=changed_form.cleaned_data['status'])
             if our_request.status.id != new_stat.id:
                 exec_time = Execution_time.objects.create(request=our_request, rstatus=changed_form.cleaned_data['status'] )
-
                 exec_time.save()
                 our_request.status = changed_form.cleaned_data['status']
-            #our_request.equipment = changed_form.cleaned_data['equipment1']
             our_request.save()
-            reqform = ShowRequestForm(instance=our_request)
+            if our_request.status.id >6:
+                reqform = ShowSolRequestForm (instance=our_request)
+            else:
+                reqform = ShowRequestForm(instance=our_request)
+
             context = {
                 'reqform': reqform,
                 'usertype': usertype,
@@ -274,7 +283,10 @@ def request_journal(request, pk):
 
     else:
         our_request = Request.objects.get(id=pk)
-        reqform= ShowRequestForm(instance=our_request)
+        if our_request.status.id >6:
+            reqform = ShowSolRequestForm (instance=our_request)
+        else:
+            reqform = ShowRequestForm(instance=our_request)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company )
         context = {
@@ -298,15 +310,22 @@ def engineer_request_journal(request, pk):
     if request.method == 'POST':
 
         our_request = Request.objects.get(id=pk)
-        changed_form = ShowEngRequestForm(request.POST)
+        if our_request.status.id >6:
+            sol = True
+            changed_form = ShowEngSolRequestForm(request.POST)
+        else:
+            sol = False
+            changed_form = ShowEngRequestForm(request.POST)
+        changed_form.save(commit=False)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company )
-        #our_request.equipment = changed_form.cleaned_data['equipment1']
+
         if changed_form.is_valid():
-            changed_form.save(commit=False)
+
             our_request.engineer = changed_form.cleaned_data['engineer']
             our_request.group = changed_form.cleaned_data['group']
-            our_request.solution = changed_form.cleaned_data['solution']
+            if sol:
+                our_request.solution = changed_form.cleaned_data['solution']
             our_request.equipment = changed_form.cleaned_data['equipment']
             new_stat = Request_status.objects.get(name=changed_form.cleaned_data['status'])
             if our_request.status.id != new_stat.id:
@@ -315,7 +334,10 @@ def engineer_request_journal(request, pk):
                 our_request.status = changed_form.cleaned_data['status']
             #our_request.equipment = changed_form.cleaned_data['equipment1']
             our_request.save()
-            reqform = ShowEngRequestForm(instance=our_request)
+            if our_request.status.id >6:
+                reqform = ShowEngSolRequestForm (instance=our_request)
+            else:
+                reqform = ShowEngRequestForm(instance=our_request)
             context = {
                 'reqform': reqform,
                 'usertype': usertype,
@@ -329,8 +351,12 @@ def engineer_request_journal(request, pk):
             return HttpResponse("Error!")
 
     else:
+
         our_request = Request.objects.get(id=pk)
-        reqform= ShowEngRequestForm(instance=our_request)
+        if our_request.status.id >6:
+            reqform = ShowEngSolRequestForm (instance=our_request)
+        else:
+            reqform = ShowEngRequestForm(instance=our_request)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company )
         context = {
@@ -346,8 +372,6 @@ def engineer_request_journal(request, pk):
 
 
 def client_request_journal(request, pk):
-#to be ended
-
     usertype = request.user.usertype.name
     commentform = NewCommentForm()
     comments = Comment.objects.filter(request__id=pk)
@@ -358,15 +382,17 @@ def client_request_journal(request, pk):
         changed_form.save(commit=False)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company)
-        #if our_request.solution.__len__() == 0:
-        #    need_approve = False
-        #else:
-        #    need_approve = True
+
         if changed_form.is_valid():
 
             our_request.approvement = changed_form.cleaned_data['approvement']
             our_request.save()
             reqform = ShowClientRequestForm(instance=our_request)
+            if our_request.status >6:
+                if our_request.solution != None:
+                    need_approve = True
+            else:
+                need_approve = False
             context = {
                 #'need_approve': need_approve,
                 'reqform': reqform,
@@ -374,7 +400,8 @@ def client_request_journal(request, pk):
                 'comments': comments,
                 'commentform': commentform,
                 'reqobject': our_request,
-                'equips': equips
+                'equips': equips,
+                'need_approve': need_approve
             }
 
         else:
@@ -383,14 +410,16 @@ def client_request_journal(request, pk):
     else:
         our_request = Request.objects.get(id = pk)
         reqform= ShowClientRequestForm(instance = our_request)
-        #if our_request.solution.__len__() == 0:
-        #    need_approve = False
-        #else:
-        #    need_approve = True
+
         company = our_request.company
         equips = Equipment.objects.filter(contract__company = company )
+        if our_request.status >6:
+            if our_request.solution != None:
+                need_approve = True
+            else:
+                need_approve = False
         context = {
-              #  'need_approve': need_approve,
+                'need_approve': need_approve,
                 'reqform': reqform,
                 'usertype': usertype,
                 'comments': comments,
