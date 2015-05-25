@@ -179,6 +179,7 @@ def new_request(request):
     if usertype != u'Клиент':
         if request.method == 'POST':
             form = RequestForm(request.POST)
+
             if form.is_valid():
                 new_request = form.save(commit=False)
                 new_request.status = Request_status.objects.get(id= 1)
@@ -193,6 +194,7 @@ def new_request(request):
                 return render(request, 'created_request.html', context)
         else:
             form = RequestForm()
+
             context = {
 
                 'form': form,
@@ -203,6 +205,7 @@ def new_request(request):
     else:
         if request.method == 'POST':
             form = ClientRequestForm(request.POST)
+            form.fields["equipment"].queryset = Equipment.objects.filter(company__id=request.user.company.id)
             if form.is_valid():
                 new_request = form.save(commit=False)
                 new_request.company = request.user.company
@@ -218,6 +221,7 @@ def new_request(request):
                 return render(request, 'created_request.html', context)
         else:
             form = ClientRequestForm()
+            form.fields["equipment"].queryset = Equipment.objects.filter(company__id=request.user.company.id)
             context = {
                 'form': form,
                 'usertype': request.user.usertype.name
@@ -379,6 +383,7 @@ def client_request_journal(request, pk):
     if request.method == 'POST':
         our_request = Request.objects.get(id = pk)
         changed_form = ShowClientRequestForm(request.POST)
+
         changed_form.save(commit=False)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company)
