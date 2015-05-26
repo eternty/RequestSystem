@@ -80,7 +80,8 @@ class System_User(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         full_name = '%s %s %s' % (self.first_name, self.patronymic, self.last_name)
         return full_name.strip()
-
+    def get_specialization(self):
+        return Specialization.objects.filter(engineer=self)
 
     class Meta:
         verbose_name = u'Пользователь'
@@ -224,6 +225,8 @@ class Specialization(models.Model):
 
     engineer = models.ForeignKey(System_User)
     group = models.ForeignKey(Groups_engineer)
+    def get_name(self):
+        return System_User.objects.get(id=self.engineer).get_full_name()
 
 
 class Request(models.Model):

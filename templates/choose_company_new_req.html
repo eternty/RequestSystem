@@ -8,14 +8,14 @@
             <div class="col-md-8 col-md-offset-2 panel panel-info ">
                 <div class="panel-heading"><h3 style="text-align: center">Информация о заявке</h3></div>
                     <div class="panel-body">
-                        <form action="/new_request" method="post">
+                        <form action="/choose_company_new_req" method="post">
                             <table class="table table-responsive">
                                 {% csrf_token %}
                                 {{ form.as_table }}
 
                             </table>
 
-                            <input type="submit" value="Зарегистрировать" />
+                            <input type="submit" value="Выбрать" />
                         </form>
 
                     </div>

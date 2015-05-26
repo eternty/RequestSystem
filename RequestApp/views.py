@@ -6,7 +6,7 @@ from django.contrib.contenttypes import generic
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import  RequestForm, ClientRequestForm, ShowRequestForm, NewCommentForm, ShowClientRequestForm, ShowEngRequestForm, \
-    ShowEngSolRequestForm, ShowSolRequestForm
+    ShowEngSolRequestForm, ShowSolRequestForm, ChooseCompanyNewReqForm
 
 
 # Create your views here.
@@ -270,9 +270,19 @@ def request_journal(request, pk):
             our_request.save()
             if our_request.status.id >6:
                 reqform = ShowSolRequestForm (instance=our_request)
+                reqform.fields["equipment"].queryset = Equipment.objects.filter(company=our_request.company)
+                reqform.fields["creator"].queryset = System_User.objects.filter(company=our_request.company)
+                ids = Specialization.objects.values_list('engineer').filter(group__name=u'Диспетчеры')
+                disps = System_User.objects.filter(id=ids)
+                reqform.fields["dispatcher"].queryset = disps
+
             else:
                 reqform = ShowRequestForm(instance=our_request)
-
+                reqform.fields["equipment"].queryset = Equipment.objects.filter(company=our_request.company)
+                reqform.fields["creator"].queryset = System_User.objects.filter(company=our_request.company)
+                ids = Specialization.objects.values_list('engineer').filter(group__name=u'Диспетчеры')
+                disps = System_User.objects.filter(id=ids)
+                reqform.fields["dispatcher"].queryset = disps
             context = {
                 'reqform': reqform,
                 'usertype': usertype,
@@ -288,11 +298,23 @@ def request_journal(request, pk):
     else:
         our_request = Request.objects.get(id=pk)
         if our_request.status.id >6:
-            reqform = ShowSolRequestForm (instance=our_request)
+            reqform = ShowSolRequestForm(instance=our_request)
+            reqform.fields["equipment"].queryset = Equipment.objects.filter(company=our_request.company)
+            reqform.fields["creator"].queryset = System_User.objects.filter(company=our_request.company)
+            ids = Specialization.objects.values_list('engineer').filter(group__name=u'Диспетчеры')
+            disps = System_User.objects.filter(id=ids)
+            reqform.fields["dispatcher"].queryset = disps
+            #ids_disp = Specialization.objects.values_list('get_name', flat=True).filter(group__name=u'Диспетчеры')
+            #reqform.fields["dispatcher"].queryset = ids_disp
         else:
             reqform = ShowRequestForm(instance=our_request)
+            reqform.fields["equipment"].queryset = Equipment.objects.filter(company=our_request.company)
+            reqform.fields["creator"].queryset = System_User.objects.filter(company=our_request.company)
+            ids = Specialization.objects.values_list('engineer').filter(group__name=u'Диспетчеры')
+            disps = System_User.objects.filter(id=ids)
+            reqform.fields["dispatcher"].queryset = disps
         company = our_request.company
-        equips = Equipment.objects.filter(contract__company=company )
+        equips = Equipment.objects.filter(contract__company=company)
         context = {
                 'reqform': reqform,
                 'usertype': usertype,
@@ -340,8 +362,10 @@ def engineer_request_journal(request, pk):
             our_request.save()
             if our_request.status.id >6:
                 reqform = ShowEngSolRequestForm (instance=our_request)
+                reqform.fields["equipment"].queryset = Equipment.objects.filter(company=our_request.company)
             else:
                 reqform = ShowEngRequestForm(instance=our_request)
+                reqform.fields["equipment"].queryset = Equipment.objects.filter(company=our_request.company)
             context = {
                 'reqform': reqform,
                 'usertype': usertype,
@@ -359,8 +383,10 @@ def engineer_request_journal(request, pk):
         our_request = Request.objects.get(id=pk)
         if our_request.status.id >6:
             reqform = ShowEngSolRequestForm (instance=our_request)
+            reqform.fields["equipment"].queryset = Equipment.objects.filter(company=our_request.company)
         else:
             reqform = ShowEngRequestForm(instance=our_request)
+            reqform.fields["equipment"].queryset = Equipment.objects.filter(company=our_request.company)
         company = our_request.company
         equips = Equipment.objects.filter(contract__company=company )
         context = {

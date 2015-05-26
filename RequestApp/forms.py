@@ -7,9 +7,12 @@ from RequestApp.models import Request, Equipment, Comment
 class RequestForm(ModelForm):
     class Meta:
         model = Request
-        fields = ['company', 'creator', 'reqtype', 'priority', 'header', 'info',  'equipment' ]
+        fields = ['company','creator', 'reqtype', 'priority', 'header', 'info',  'equipment']
 
-
+class ChooseCompanyNewReqForm(forms.Form):
+    class Meta:
+        model = Request
+        fields = ['company']
 
 class ClientRequestForm(ModelForm):
     class Meta:
